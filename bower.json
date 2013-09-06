@@ -1,0 +1,26 @@
+{
+  "name": "backbone.pinhole",
+  "description": "",
+  "version": "0.1.0",
+  "homepage": "https://github.com/jmorrell/backbone.pinhole",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "test",
+    ".jshintrc",
+    ".travis.yml",
+    "CHANGELOG.md",
+    "karma.conf.js",
+    "package.json"
+  ],
+  "dependencies": {
+    "backbone": "~1.0.0",
+    "underscore": "~1.5.1"
+  },
+  "devDependencies": {
+    "chai": "*",
+    "backbone": "~1.0.0",
+    "underscore": "~1.5.1"
+  }
+}
+
