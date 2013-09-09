@@ -38,7 +38,7 @@
   font-family: montserrat, sans-serif;
   color: #b8eaea;
   font-weight: bold;
-  font-size: 1.3em; }
+  font-size: 1.75em; }
 
 .title-card h5 {
   margin-top: 150px;
@@ -74,4 +74,7 @@
   .title-card h5 {
     margin-top: 40px;
     font-size: 0.9em; }
+  .content img {
+    max-width: 100%;
+  }
 }
