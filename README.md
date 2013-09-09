@@ -1,10 +1,29 @@
-# backbone.obscura
+# Backbone.Obscura
 
-![Logo](https://raw.github.com/jmorrell/backbone.obscura/master/img/CameraObscura.jpg)
+Backbone.Obscura is a read-only proxy of a Backbone.Collection that can easily be 
+filtered, sorted, and paginated. As the underlying collection is changed the proxy 
+is efficiently kept in sync, taking into account all of the transformations. All
+transformations can be modified at any time.
+
+This means you can pass the proxy into a Backbone.View and let Backbone.Obscura take
+care of the filtering or paginating logic, leaving your view to only re-render itself
+as the collection changes. This keeps your views simple and DRY.
+
+This library is effectively a convenience wrapper around [backbone-filtered-collection](https://github.com/jmorrell/backbone-filtered-collection),
+[backbone-sorted-collection](https://github.com/jmorrell/backbone-sorted-collection), 
+and [backbone-paginated-collection](https://github.com/jmorrell/backbone-paginated-collection).
 
 [![Build Status](https://secure.travis-ci.org/user/backbone.obscura.png?branch=master)](http://travis-ci.org/user/backbone.obscura)
 
-TODO
+### Where does the name come from?
+
+The camera obscura is an optical device that projects an image of its surroundings 
+on a screen. In a similar way, we are using a crude projection of the original
+collection to "draw" our views.
+
+![Logo](https://raw.github.com/jmorrell/backbone.obscura/master/img/CameraObscura.jpg)
+
+## Example
 
 ```javascript
 // TODO
@@ -15,6 +34,9 @@ TODO
 ### new Backbone.Obscura
 
 
+## Alternative Libraries
+[Backbone.Projections](https://github.com/andreypopp/backbone.projections)
+[backbone.collectionsubset](https://github.com/anthonyshort/backbone.collectionsubset)
 
 ## Installation
 
