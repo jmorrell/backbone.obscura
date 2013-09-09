@@ -8,7 +8,7 @@ var PaginatedCollection = require('backbone-paginated-collection');
 var proxyCollection = require('backbone-collection-proxy');
 var proxyEvents = require('./src/proxy-events.js');
 
-function Pinhole(superset, options) {
+function Obscura(superset, options) {
   this._superset = superset;
 
   this._filtered = new FilteredCollection(superset, options);
@@ -74,11 +74,11 @@ _.each(sortedMethods, function(method) {
   };
 });
 
-_.extend(Pinhole.prototype, methods, Backbone.Events);
+_.extend(Obscura.prototype, methods, Backbone.Events);
 
-Pinhole.FilteredCollection = FilteredCollection;
-Pinhole.SortedCollection = SortedCollection;
-Pinhole.PaginatedCollection = PaginatedCollection;
+Obscura.FilteredCollection = FilteredCollection;
+Obscura.SortedCollection = SortedCollection;
+Obscura.PaginatedCollection = PaginatedCollection;
 
-module.exports = Pinhole;
+module.exports = Obscura;
 

@@ -21,7 +21,7 @@ describe('sorted collection', function() {
 
   beforeEach(function() {
     superset = new Backbone.Collection(mockData);
-    sorted = new Backbone.Pinhole(superset);
+    sorted = new Backbone.Obscura(superset);
   });
 
   describe('unsorted', function() {

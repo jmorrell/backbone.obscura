@@ -9,7 +9,7 @@ describe('PaginatedCollection', function() {
 
     beforeEach(function() {
       superset = new Backbone.Collection(mockData);
-      paginated = new Backbone.Pinhole(superset);
+      paginated = new Backbone.Obscura(superset);
     });
 
     it('perPage should have a default of 20 items per page', function() {
@@ -27,7 +27,7 @@ describe('PaginatedCollection', function() {
 
     beforeEach(function() {
       superset = new Backbone.Collection(mockData);
-      paginated = new Backbone.Pinhole(superset, { perPage: 15 });
+      paginated = new Backbone.Obscura(superset, { perPage: 15 });
     });
 
     it('perPage should be 15', function() {
@@ -139,7 +139,7 @@ describe('PaginatedCollection', function() {
 
     beforeEach(function() {
       superset = new Backbone.Collection(mockData);
-      paginated = new Backbone.Pinhole(superset, { perPage: 15 });
+      paginated = new Backbone.Obscura(superset, { perPage: 15 });
     });
 
     it('should reset the current page to 0', function() {
@@ -159,7 +159,7 @@ describe('PaginatedCollection', function() {
 
     beforeEach(function() {
       superset = new Backbone.Collection(mockData);
-      paginated = new Backbone.Pinhole(superset, { perPage: 15 });
+      paginated = new Backbone.Obscura(superset, { perPage: 15 });
     });
 
     it('should update the current page if the model was there', function() {
@@ -226,7 +226,7 @@ describe('PaginatedCollection', function() {
 
     beforeEach(function() {
       superset = new Backbone.Collection(mockData);
-      paginated = new Backbone.Pinhole(superset, { perPage: 15 });
+      paginated = new Backbone.Obscura(superset, { perPage: 15 });
     });
 
     it('should update the current page if the model was there', function() {
@@ -295,7 +295,7 @@ describe('PaginatedCollection', function() {
 
     beforeEach(function() {
       superset = new Backbone.Collection(mockData);
-      paginated = new Backbone.Pinhole(superset, { perPage: 15 });
+      paginated = new Backbone.Obscura(superset, { perPage: 15 });
     });
 
     it('should update the current page if the model was there', function() {
@@ -367,7 +367,7 @@ describe('PaginatedCollection', function() {
 
     beforeEach(function() {
       superset = new Backbone.Collection(mockData);
-      paginated = new Backbone.Pinhole(superset, { perPage: 15 });
+      paginated = new Backbone.Obscura(superset, { perPage: 15 });
     });
 
     it('should update everything', function() {
@@ -401,7 +401,7 @@ describe('PaginatedCollection', function() {
 
     beforeEach(function() {
       superset = new Backbone.Collection(mockData);
-      paginated = new Backbone.Pinhole(superset, { perPage: 15 });
+      paginated = new Backbone.Obscura(superset, { perPage: 15 });
     });
 
     it('removing a model', function() {
@@ -449,7 +449,7 @@ describe('PaginatedCollection', function() {
 
     beforeEach(function() {
       superset = new Backbone.Collection(mockData);
-      paginated = new Backbone.Pinhole(superset, { perPage: 15 });
+      paginated = new Backbone.Obscura(superset, { perPage: 15 });
     });
 
     it('add event on add', function() {
@@ -680,7 +680,7 @@ describe('PaginatedCollection', function() {
 
     beforeEach(function() {
       superset = new Backbone.Collection(mockData);
-      paginated = new Backbone.Pinhole(superset, { perPage: 15 });
+      paginated = new Backbone.Obscura(superset, { perPage: 15 });
     });
 
     it('paginated:change:perPage', function() {

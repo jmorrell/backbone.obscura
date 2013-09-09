@@ -1,8 +1,8 @@
 {
-  "name": "backbone.pinhole",
+  "name": "backbone.obscura",
   "description": "",
   "version": "0.1.0",
-  "homepage": "https://github.com/jmorrell/backbone.pinhole",
+  "homepage": "https://github.com/jmorrell/backbone.obscura",
   "main": "",
   "license": "MIT",
   "ignore": [

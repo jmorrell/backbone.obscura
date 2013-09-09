@@ -1,6 +1,6 @@
-# backbone.pinhole
+# backbone.obscura
 
-[![Build Status](https://secure.travis-ci.org/user/backbone.pinhole.png?branch=master)](http://travis-ci.org/user/backbone.pinhole)
+[![Build Status](https://secure.travis-ci.org/user/backbone.obscura.png?branch=master)](http://travis-ci.org/user/backbone.obscura)
 
 TODO
 
@@ -10,7 +10,7 @@ TODO
 
 ## Methods
 
-### new Backbone.Pinhole
+### new Backbone.Obscura
 
 
 
@@ -21,13 +21,13 @@ TODO
 Install with npm, use with [Browserify](http://browserify.org/)
 
 ```
-> npm install backbone.pinhole
+> npm install backbone.obscura
 ```
 
 and in your code
 
 ```javascript
-var Pinhole = require('backbone.pinhole');
+var Obscura = require('backbone.obscura');
 ```
 
 ### Usage with Bower
@@ -35,21 +35,21 @@ var Pinhole = require('backbone.pinhole');
 Install with [Bower](http://bower.io):
 
 ```
-bower install backbone.pinhole
+bower install backbone.obscura
 ```
 
 The component can be used as a Common JS module, an AMD module, or a global.
 
 ### Usage as browser global
 
-You can include `backbone.pinhole.js` directly in a script tag. Make 
+You can include `backbone.obscura.js` directly in a script tag. Make 
 sure that it is loaded after underscore and backbone. It's exported as 
-`Backbone.Pinhole`.
+`Backbone.Obscura`.
 
 ```HTML
 <script src="underscore.js"></script>
 <script src="backbone.js"></script>
-<script src="backbone.pinhole.js"></script>
+<script src="backbone.obscura.js"></script>
 ```
 
 ## Testing

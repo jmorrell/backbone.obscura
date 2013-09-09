@@ -1,8 +1,8 @@
 {
-  "name": "backbone.pinhole",
+  "name": "backbone.obscura",
   "description": "",
   "version": "0.1.0",
-  "homepage": "https://github.com/jmorrell/backbone.pinhole",
+  "homepage": "https://github.com/jmorrell/backbone.obscura",
   "main": "index.js",
   "license": "MIT",
   "author": {
@@ -12,7 +12,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/jmorrell/backbone.pinhole.git"
+    "url": "https://github.com/jmorrell/backbone.obscura.git"
   },
   "devDependencies": {
     "karma-script-launcher": "~0.1.0",

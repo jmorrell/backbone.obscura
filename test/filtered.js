@@ -14,7 +14,7 @@ describe('filtered collection', function() {
 
   beforeEach(function() {
     superset = new Backbone.Collection(mockData);
-    filtered = new Backbone.Pinhole(superset);
+    filtered = new Backbone.Obscura(superset);
   });
 
   describe('getting access to the original superset', function() {

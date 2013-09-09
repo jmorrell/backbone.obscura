@@ -4,20 +4,20 @@ module.exports = function (grunt) {
     browserify: {
       basic: {
         src: [],
-        dest: 'build/backbone.pinhole.js',
+        dest: 'build/backbone.obscura.js',
         options: {
           external: [ 'underscore', 'backbone' ],
-          alias: ['./index.js:pinhole']
+          alias: ['./index.js:obscura']
         }
       }
     },
 
     umd: {
       default: {
-        src: 'build/backbone.pinhole.js',
+        src: 'build/backbone.obscura.js',
         template: './templates/umd.hbs',
-        objectToExport: "require('pinhole')",
-        globalAlias: 'Backbone.Pinhole',
+        objectToExport: "require('obscura')",
+        globalAlias: 'Backbone.Obscura',
         deps: {
           'default': ['_', 'Backbone'],
           amd: ['underscore', 'backbone'],
