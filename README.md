@@ -6,15 +6,12 @@ is efficiently kept in sync, taking into account all of the transformations. All
 transformations can be modified at any time. The proxy implements all of the read-only
 Backbone.Collection methods.
 
-This means you can pass the proxy into a Backbone.View and let Backbone.Obscura take
-care of the filtering or paginating logic, leaving your view to only re-render itself
-as the collection changes. This keeps your views simple and [DRY](http://en.wikipedia.org/wiki/Don't_repeat_yourself).
+You can pass the proxy into a Backbone.View and let Backbone.Obscura take care of 
+the filtering or paginating logic, leaving your view to only re-render itself as 
+the collection changes. This keeps your views simple and [DRY](http://en.wikipedia.org/wiki/Don't_repeat_yourself).
 This works particularly well with [Marionette's](https://github.com/marionettejs/backbone.marionette)
-[CollectionView](https://github.com/marionettejs/backbone.marionette/blob/master/docs/marionette.collectionview.md).
-
-This library is effectively a convenience wrapper around [backbone-filtered-collection](https://github.com/jmorrell/backbone-filtered-collection),
-[backbone-sorted-collection](https://github.com/jmorrell/backbone-sorted-collection), 
-and [backbone-paginated-collection](https://github.com/jmorrell/backbone-paginated-collection).
+[CollectionView](https://github.com/marionettejs/backbone.marionette/blob/master/docs/marionette.collectionview.md) 
+and [CompositeView](https://github.com/marionettejs/backbone.marionette/blob/master/docs/marionette.compositeview.md).
 
 ```javascript
 var proxy = new Backbone.Obscura(original);
@@ -57,6 +54,10 @@ collection to "draw" our views.
 ```
 
 ## Methods
+
+This library is effectively a convenience wrapper around [backbone-filtered-collection](https://github.com/jmorrell/backbone-filtered-collection),
+[backbone-sorted-collection](https://github.com/jmorrell/backbone-sorted-collection), 
+and [backbone-paginated-collection](https://github.com/jmorrell/backbone-paginated-collection).
 
 ### new Backbone.Obscura(collection, options)
 
