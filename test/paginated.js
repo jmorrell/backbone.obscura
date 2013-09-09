@@ -12,13 +12,41 @@ describe('PaginatedCollection', function() {
       paginated = new Backbone.Obscura(superset);
     });
 
-    it('perPage should have a default of 20 items per page', function() {
-      assert(paginated.length === 20);
-      assert(paginated.getPerPage() === 20);
+    it('perPage should be the length of the superset', function() {
+      assert(paginated.getPerPage() === superset.length);
+    });
+
+    it('should have the same length as the original set by default', function() {
+      assert(paginated.length === superset.length);
+    });
+
+    it('and maintain that length as models are added / removed', function() {
+      var lotsaData = _.map(_.range(10000), function(i) { return { n: i }; });
+
+      superset.reset(lotsaData);
+      assert(paginated.length === superset.length);
+      assert(paginated.getPerPage() === superset.length);
+
+      superset.add(new Backbone.Model({ n: 10000000 }));
+      assert(paginated.length === superset.length);
+      assert(paginated.getPerPage() === superset.length);
+
+      superset.remove(superset.last());
+      assert(paginated.length === superset.length);
+      assert(paginated.getPerPage() === superset.length);
     });
 
     it('should be on page 0', function() {
       assert(paginated.getPage() === 0);
+    });
+
+    it('should have 1 pages', function() {
+      assert(paginated.getNumPages() === 1);
+    });
+
+    it("shouldn't have a next or prev page", function() {
+      assert(!paginated.hasNextPage());
+      assert(!paginated.hasPrevPage());
     });
 
   });
@@ -131,6 +159,15 @@ describe('PaginatedCollection', function() {
 
       paginated.movePage(-100);
       assert(paginated.getPage() === 0);
+    });
+
+    it('`removePagination` should remove all pagination settings', function() {
+      paginated.removePagination();
+
+      assert(paginated.getPerPage() === superset.length);
+      assert(paginated.getPage() === 0);
+      assert(paginated.getNumPages() === 1);
+      assert(paginated.length === superset.length);
     });
 
   });
@@ -511,7 +548,7 @@ describe('PaginatedCollection', function() {
       // Add the model in the 91st index. This will be on a later page
       superset.add(model, { at: 90 });
 
-      // The set should still be 29-43
+      // The set should still be 30-44
       assert(_.isEqual(paginated.pluck('n'), _.range(30, 45)));
 
       assert(!resetEvent);
@@ -559,7 +596,7 @@ describe('PaginatedCollection', function() {
       // remove the first model from the superset
       superset.remove(superset.last());
 
-      // The set should still be 30-45
+      // The set should still be 30-44
       assert(_.isEqual(paginated.pluck('n'), _.range(30, 45)));
 
       assert(!resetEvent);
