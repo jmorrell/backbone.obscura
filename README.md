@@ -1,3 +1,4 @@
+
 # Backbone.Obscura
 
 Backbone.Obscura is a read-only proxy of a Backbone.Collection that can easily be 
@@ -12,6 +13,8 @@ the collection changes. This keeps your views simple and [DRY](http://en.wikiped
 This works particularly well with [Marionette's](https://github.com/marionettejs/backbone.marionette)
 [CollectionView](https://github.com/marionettejs/backbone.marionette/blob/master/docs/marionette.collectionview.md) 
 and [CompositeView](https://github.com/marionettejs/backbone.marionette/blob/master/docs/marionette.compositeview.md).
+
+![Logo](https://raw.github.com/jmorrell/backbone.obscura/master/img/CameraObscura.jpg)
 
 ```javascript
 var proxy = new Backbone.Obscura(original);
@@ -44,8 +47,6 @@ $('button').on('click', function() {
 The camera obscura is an optical device that projects an image of its surroundings 
 on a screen. In a similar way, we are using a crude projection of the original
 collection to "draw" our views.
-
-![Logo](https://raw.github.com/jmorrell/backbone.obscura/master/img/CameraObscura.jpg)
 
 ## Example
 
