@@ -58,7 +58,7 @@ collection to "draw" our views.
 
 ## Methods
 
-### new Backbone.Obscura
+### new Backbone.Obscura(collection, options)
 
 
 ## Alternative Libraries
