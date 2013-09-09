@@ -22,9 +22,18 @@ function Obscura(superset, options) {
 }
 
 var methods = {
+
   superset: function() {
     return this._superset;
+  },
+
+  removeTransforms: function() {
+    this._filtered.resetFilters();
+    this._sorted.removeSort();
+    this._paginated.removePagination();
+    return this;
   }
+
 };
 
 // Methods on `this._filtered` we will expose to the outside world
@@ -59,19 +68,22 @@ var paginatedEvents = [
 
 _.each(filteredMethods, function(method) {
   methods[method] = function() {
-    return FilteredCollection.prototype[method].apply(this._filtered, arguments);
+    var result = FilteredCollection.prototype[method].apply(this._filtered, arguments);
+    return result === this._filtered ? this : result;
   };
 });
 
 _.each(paginatedMethods, function(method) {
   methods[method] = function() {
-    return PaginatedCollection.prototype[method].apply(this._paginated, arguments);
+    var result = PaginatedCollection.prototype[method].apply(this._paginated, arguments);
+    return result === this._paginated ? this : result;
   };
 });
 
 _.each(sortedMethods, function(method) {
   methods[method] = function() {
-    return SortedCollection.prototype[method].apply(this._sorted, arguments);
+    var result = SortedCollection.prototype[method].apply(this._sorted, arguments);
+    return result === this._sorted ? this : result;
   };
 });
 

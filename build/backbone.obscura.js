@@ -35,9 +35,18 @@ function Obscura(superset, options) {
 }
 
 var methods = {
+
   superset: function() {
     return this._superset;
+  },
+
+  removeTransforms: function() {
+    this._filtered.resetFilters();
+    this._sorted.removeSort();
+    this._paginated.removePagination();
+    return this;
   }
+
 };
 
 // Methods on `this._filtered` we will expose to the outside world
@@ -72,19 +81,22 @@ var paginatedEvents = [
 
 _.each(filteredMethods, function(method) {
   methods[method] = function() {
-    return FilteredCollection.prototype[method].apply(this._filtered, arguments);
+    var result = FilteredCollection.prototype[method].apply(this._filtered, arguments);
+    return result === this._filtered ? this : result;
   };
 });
 
 _.each(paginatedMethods, function(method) {
   methods[method] = function() {
-    return PaginatedCollection.prototype[method].apply(this._paginated, arguments);
+    var result = PaginatedCollection.prototype[method].apply(this._paginated, arguments);
+    return result === this._paginated ? this : result;
   };
 });
 
 _.each(sortedMethods, function(method) {
   methods[method] = function() {
-    return SortedCollection.prototype[method].apply(this._sorted, arguments);
+    var result = SortedCollection.prototype[method].apply(this._sorted, arguments);
+    return result === this._sorted ? this : result;
   };
 });
 
@@ -635,6 +647,7 @@ var methods = {
 
   removePagination: function() {
     this.setPerPage(null);
+    return this;
   },
 
   setPerPage: function(perPage) {
@@ -646,6 +659,8 @@ var methods = {
       perPage: perPage,
       numPages: this.getNumPages()
     });
+
+    return this;
   },
 
   setPage: function(page) {
@@ -663,6 +678,7 @@ var methods = {
     updatePagination.call(this);
 
     this.trigger('paginated:change:page', { page: page });
+    return this;
   },
 
   getPerPage: function() {
@@ -687,14 +703,17 @@ var methods = {
 
   nextPage: function() {
     this.movePage(1);
+    return this;
   },
 
   prevPage: function() {
     this.movePage(-1);
+    return this;
   },
 
   movePage: function(delta) {
     this.setPage(this.getPage() + delta);
+    return this;
   },
 
   superset: function() {
@@ -845,6 +864,7 @@ var methods = {
 
   removeSort: function() {
     this.setSort();
+    return this;
   },
 
   superset: function() {
