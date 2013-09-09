@@ -21,7 +21,7 @@ var PaginatedCollection = require('backbone-paginated-collection');
 var proxyCollection = require('backbone-collection-proxy');
 var proxyEvents = require('./src/proxy-events.js');
 
-function Pinhole(superset, options) {
+function Obscura(superset, options) {
   this._superset = superset;
 
   this._filtered = new FilteredCollection(superset, options);
@@ -87,16 +87,16 @@ _.each(sortedMethods, function(method) {
   };
 });
 
-_.extend(Pinhole.prototype, methods, Backbone.Events);
+_.extend(Obscura.prototype, methods, Backbone.Events);
 
-Pinhole.FilteredCollection = FilteredCollection;
-Pinhole.SortedCollection = SortedCollection;
-Pinhole.PaginatedCollection = PaginatedCollection;
+Obscura.FilteredCollection = FilteredCollection;
+Obscura.SortedCollection = SortedCollection;
+Obscura.PaginatedCollection = PaginatedCollection;
 
-module.exports = Pinhole;
+module.exports = Obscura;
 
 
-},{"./src/proxy-events.js":11,"backbone":false,"backbone-collection-proxy":2,"backbone-filtered-collection":3,"backbone-paginated-collection":6,"backbone-sorted-collection":9,"underscore":false}],2:[function(require,module,exports){
+},{"./src/proxy-events.js":11,"backbone":false,"backbone-collection-proxy":2,"backbone-filtered-collection":3,"backbone-paginated-collection":6,"backbone-sorted-collection":8,"underscore":false}],2:[function(require,module,exports){
 
 var _ = require('underscore');
 var Backbone = require('backbone');
@@ -737,9 +737,7 @@ function proxyCollection(from, target) {
 module.exports = proxyCollection;
 
 
-},{"backbone":false,"underscore":false}],"obscura":[function(require,module,exports){
-module.exports=require('HusaU0');
-},{}],9:[function(require,module,exports){
+},{"backbone":false,"underscore":false}],8:[function(require,module,exports){
 
 var _ = require('underscore');
 var Backbone =require('backbone');
@@ -835,7 +833,9 @@ _.extend(Sorted.prototype, methods, Backbone.Events);
 module.exports = Sorted;
 
 
-},{"backbone":false,"backbone-collection-proxy":10,"underscore":false}],10:[function(require,module,exports){
+},{"backbone":false,"backbone-collection-proxy":10,"underscore":false}],"obscura":[function(require,module,exports){
+module.exports=require('HusaU0');
+},{}],10:[function(require,module,exports){
 
 var _ = require('underscore');
 var Backbone = require('backbone');

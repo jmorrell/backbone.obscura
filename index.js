@@ -48,7 +48,8 @@ var sortedEvents = [
 // Methods on `this._paginated` we will expose to the outside world
 var paginatedMethods = [
   'setPerPage', 'setPage', 'getPerPage', 'getNumPages', 'getPage',
-  'hasNextPage', 'hasPrevPage', 'nextPage', 'prevPage', 'movePage'
+  'hasNextPage', 'hasPrevPage', 'nextPage', 'prevPage', 'movePage',
+  'removePagination'
 ];
 
 // Events fired from `this._paginated` that we will forward
