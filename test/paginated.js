@@ -1,9 +1,9 @@
 var assert = chai.assert;
 
-describe('Backbone.Filtering.PaginatedCollection', function() {
+describe('PaginatedCollection', function() {
 
-  var mockData = _.map(_.range(100), function(i) { return { n: i }; });
   var superset, paginated;
+  var mockData = _.map(_.range(100), function(i) { return { n: i }; });
 
   describe('With no options', function() {
 
@@ -452,11 +452,12 @@ describe('Backbone.Filtering.PaginatedCollection', function() {
       paginated = new Backbone.Pinhole(superset, { perPage: 15 });
     });
 
-    it('reset event on add', function() {
+    it('add event on add', function() {
       var model = new Backbone.Model({ n: 200 });
 
       var called = false;
-      paginated.on('reset', function(collection) {
+      paginated.on('add', function(m, collection) {
+        assert(m === model);
         assert(collection === paginated);
         called = true;
       });
@@ -466,25 +467,125 @@ describe('Backbone.Filtering.PaginatedCollection', function() {
       assert(called);
     });
 
-    it("no reset event when adding a model not on the current page", function() {
+    it('add and remove event when adding a model on a previous page', function() {
+      var model = new Backbone.Model({ n: 200 });
+
+      // Set page to 2, we should have models 30-44
+      paginated.setPage(2);
+      assert(_.isEqual(paginated.pluck('n'), _.range(30, 45)));
+
+      var addEvent = false;
+      var removeEvent = false;
+      var resetEvent = false;
+
+      paginated.on('add',    function() { addEvent    = true; });
+      paginated.on('remove', function() { removeEvent = true; });
+      paginated.on('reset',  function() { resetEvent  = true; });
+
+      // Add the model in the 4th index. This will be on the first page.
+      superset.add(model, { at: 3 });
+
+      // The new set should be 29-43
+      assert(_.isEqual(paginated.pluck('n'), _.range(29, 44)));
+
+      assert(!resetEvent);
+      assert(addEvent);
+      assert(removeEvent);
+    });
+
+    it('no events when adding a model on a later page', function() {
+      var model = new Backbone.Model({ n: 200 });
+
+      // Set page to 2, we should have models 30-44
+      paginated.setPage(2);
+      assert(_.isEqual(paginated.pluck('n'), _.range(30, 45)));
+
+      var addEvent = false;
+      var removeEvent = false;
+      var resetEvent = false;
+
+      paginated.on('add',    function() { addEvent    = true; });
+      paginated.on('remove', function() { removeEvent = true; });
+      paginated.on('reset',  function() { resetEvent  = true; });
+
+      // Add the model in the 91st index. This will be on a later page
+      superset.add(model, { at: 90 });
+
+      // The set should still be 29-43
+      assert(_.isEqual(paginated.pluck('n'), _.range(30, 45)));
+
+      assert(!resetEvent);
+      assert(!addEvent);
+      assert(!removeEvent);
+    });
+
+    it('add and remove event when removing a model on a previous page', function() {
+      // Set page to 2, we should have models 30-44
+      paginated.setPage(2);
+      assert(_.isEqual(paginated.pluck('n'), _.range(30, 45)));
+
+      var addEvent = false;
+      var removeEvent = false;
+      var resetEvent = false;
+
+      paginated.on('add',    function() { addEvent    = true; });
+      paginated.on('remove', function() { removeEvent = true; });
+      paginated.on('reset',  function() { resetEvent  = true; });
+
+      // remove the first model from the superset
+      superset.remove(superset.first());
+
+      // The new set should be 31-45
+      assert(_.isEqual(paginated.pluck('n'), _.range(31, 46)));
+
+      assert(!resetEvent);
+      assert(addEvent);
+      assert(removeEvent);
+    });
+
+    it('no events when removing a model on a later page', function() {
+      // Set page to 2, we should have models 30-44
+      paginated.setPage(2);
+      assert(_.isEqual(paginated.pluck('n'), _.range(30, 45)));
+
+      var addEvent = false;
+      var removeEvent = false;
+      var resetEvent = false;
+
+      paginated.on('add',    function() { addEvent    = true; });
+      paginated.on('remove', function() { removeEvent = true; });
+      paginated.on('reset',  function() { resetEvent  = true; });
+
+      // remove the first model from the superset
+      superset.remove(superset.last());
+
+      // The set should still be 30-45
+      assert(_.isEqual(paginated.pluck('n'), _.range(30, 45)));
+
+      assert(!resetEvent);
+      assert(!addEvent);
+      assert(!removeEvent);
+    });
+
+    it("no add event when adding a model not on the current page", function() {
       var model = new Backbone.Model({ n: 200 });
 
       var called = false;
-      paginated.on('reset', function(collection) {
-        assert(collection === paginated);
+      paginated.on('add', function(m, collection) {
         called = true;
       });
 
       superset.add(model);
 
-      assert(called);
+      assert(!called);
     });
 
-    it('reset event on remove', function() {
+    it('remove event on remove', function() {
       var model = superset.first();
 
       var called = false;
-      paginated.on('reset', function(collection) {
+      paginated.on('remove', function(m, collection) {
+        assert(m === model);
         assert(collection === paginated);
         called = true;
       });
@@ -494,18 +595,17 @@ describe('Backbone.Filtering.PaginatedCollection', function() {
       assert(called);
     });
 
-    it("no reset event when removing a model not on the current page", function() {
+    it("no remove event when removing a model not on the current page", function() {
       var model = superset.last();
 
       var called = false;
-      paginated.on('reset', function(collection) {
-        assert(collection === paginated);
+      paginated.on('remove', function(collection) {
         called = true;
       });
 
       superset.remove(model);
 
-      assert(called);
+      assert(!called);
     });
 
     it('reset event', function() {
@@ -651,4 +751,5 @@ describe('Backbone.Filtering.PaginatedCollection', function() {
   });
 
 });
+
 

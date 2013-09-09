@@ -26,28 +26,11 @@ describe('sorted collection', function() {
 
   describe('unsorted', function() {
 
-    it('has the same length as the original collection', function() {
-      assert(superset.length === sorted.length);
-    });
+    it('should add things to the correct index', function() {
+      var model = new Backbone.Model({ a: 1, b: 2, c: 'z' });
 
-    it('results in the same toJSON output', function() {
-      assert(_.isEqual(superset.toJSON(), sorted.toJSON()));
-    });
-
-    it('has the same .first() output', function() {
-      assert(superset.first() === sorted.first());
-    });
-
-    it('has the same .last() output', function() {
-      assert(superset.last() === sorted.last());
-    });
-
-    it('has the same .at() output', function() {
-      assert(superset.at(0) === sorted.at(0));
-      assert(superset.at(1) === sorted.at(1));
-      assert(superset.at(2) === sorted.at(2));
-      assert(superset.at(3) === sorted.at(3));
-      assert(superset.at(4) === sorted.at(4));
+      superset.add(model, { at: 3 });
+      assert(sorted.at(3) === model);
     });
 
   });
@@ -360,6 +343,36 @@ describe('sorted collection', function() {
   });
 
   describe('Pipe events from the subset to the container', function() {
+
+    it('add event', function() {
+      var model = new Backbone.Model({ a: 2 });
+
+      var called = false;
+      sorted.on('add', function(m, collection) {
+        assert(m === model);
+        assert(collection === sorted);
+        called = true;
+      });
+
+      superset.add(model);
+
+      assert(called);
+    });
+
+    it('remove event', function() {
+      var model = superset.first();
+
+      var called = false;
+      sorted.on('remove', function(m, collection) {
+        assert(m === model);
+        assert(collection === sorted);
+        called = true;
+      });
+
+      superset.remove(model);
+
+      assert(called);
+    });
 
     it('reset event', function() {
       var called = false;

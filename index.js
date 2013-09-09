@@ -1,49 +1,12 @@
 
 var _ = require('underscore');
 var Backbone = require('backbone');
-var proxyCollection = require('backbone-collection-proxy');
 
 var FilteredCollection = require('backbone-filtered-collection');
 var SortedCollection = require('backbone-sorted-collection');
 var PaginatedCollection = require('backbone-paginated-collection');
-
-// Methods on `this._paginated` we will expose to the outside world
-var paginatedMethods = [
-  'setPerPage', 'setPage', 'getPerPage', 'getNumPages', 'getPage',
-  'hasNextPage', 'hasPrevPage', 'nextPage', 'prevPage', 'movePage'
-];
-
-// Methods on `this._sorted` we will expose to the outside world
-var sortedMethods = [ 'setSort', 'reverseSort', 'removeSort' ];
-
-// Methods on `this._filtered` we will expose to the outside world
-var filteredMethods = [
-  'filterBy', 'removeFilter', 'resetFilters', 'refilter'
-];
-
-// Events fired from `this._sorted` that we will forward
-var sortedEvents = [
-  'sorted:add', 'sorted:remove'
-];
-
-// Events fired from `this._filtered` that we will forward
-var filteredEvents = [
-  'filtered:add', 'filtered:remove', 'filtered:reset'
-];
-
-var paginatedEvents = [
-  'paginated:change:perPage', 'paginated:change:page'
-];
-
-function proxyEvents(from, eventNames) {
-  _.each(eventNames, function(eventName) {
-    this.listenTo(from, eventName, function() {
-      var args = _.toArray(arguments);
-      args.unshift(eventName);
-      this.trigger.apply(this, args);
-    });
-  }, this);
-}
+var proxyCollection = require('backbone-collection-proxy');
+var proxyEvents = require('./src/proxy-events.js');
 
 function Pinhole(superset, options) {
   this._superset = superset;
@@ -59,12 +22,39 @@ function Pinhole(superset, options) {
 }
 
 var methods = {
-
   superset: function() {
     return this._superset;
   }
-
 };
+
+// Methods on `this._filtered` we will expose to the outside world
+var filteredMethods = [
+  'filterBy', 'removeFilter', 'resetFilters', 'refilter'
+];
+
+// Events fired from `this._filtered` that we will forward
+var filteredEvents = [
+  'filtered:add', 'filtered:remove', 'filtered:reset'
+];
+
+// Methods on `this._sorted` we will expose to the outside world
+var sortedMethods = [ 'setSort', 'reverseSort', 'removeSort' ];
+
+// Events fired from `this._sorted` that we will forward
+var sortedEvents = [
+  'sorted:add', 'sorted:remove'
+];
+
+// Methods on `this._paginated` we will expose to the outside world
+var paginatedMethods = [
+  'setPerPage', 'setPage', 'getPerPage', 'getNumPages', 'getPage',
+  'hasNextPage', 'hasPrevPage', 'nextPage', 'prevPage', 'movePage'
+];
+
+// Events fired from `this._paginated` that we will forward
+var paginatedEvents = [
+  'paginated:change:perPage', 'paginated:change:page'
+];
 
 _.each(filteredMethods, function(method) {
   methods[method] = function() {
