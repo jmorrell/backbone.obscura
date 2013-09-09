@@ -17,16 +17,20 @@ This library is effectively a convenience wrapper around [backbone-filtered-coll
 and [backbone-paginated-collection](https://github.com/jmorrell/backbone-paginated-collection).
 
 ```javascript
-var proxy = new Backbone.Obscura(original, { perPage: 25 });
+var proxy = new Backbone.Obscura(original);
 
+// Set the transformations on the original collection
 proxy
+  .setPerPage(25)
   .setSort('age', 'desc')
   .filterBy(function(model) {
     return model.get('age') > 17 && model.get('age') < 70;
   });
 
+// Pass the proxy to a view that knows how to react to a changing collection
 var view = new CollectionView({ collection: proxy });
 
+// In another view or a controller, you can modify the state of the filters
 if (proxy.hasNextPage()) {
   proxy.nextPage();
 }
