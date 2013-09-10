@@ -335,9 +335,23 @@ describe('sorted collection', function() {
     it('should be added at the correct spot', function() {
       sorted.setSort('b');
 
-      superset.add({ a: 1, b: 2.5, c:'100' });
+      var model = new Backbone.Model({ a: 1, b: 2.5, c:'100' });
+      superset.add(model);
 
-      assert(sorted.at(3).get('b') === 2.5);
+      assert(sorted.at(3) === model);
+    });
+
+    it('should be added at the correct spot when desc', function() {
+      var model = new Backbone.Model({ a: 1, b: 1.5, c:'100' });
+      var model2 = new Backbone.Model({ a: 1.5, b: 2, c: '9001' });
+
+      sorted.setSort('b', 'desc');
+      superset.add(model);
+      assert(sorted.at(5) === model);
+
+      sorted.setSort('a', 'desc');
+      superset.add(model2);
+      assert(sorted.at(2) === model2);
     });
 
   });

@@ -24,8 +24,22 @@ describe('Backbone.Obscura', function() {
       assert(proxy.superset() === superset);
     });
 
-  });
+    it('adding a model', function() {
+      var newModel = new Backbone.Model({ n: 9001 });
+      var called = false;
 
+      proxy.on('add', function(model, collection, options) {
+        assert(model === newModel);
+        assert(collection === proxy);
+        assert(options.at === 300);
+        called = true;
+      });
+
+      superset.add(newModel, { at: 300 });
+      assert(called);
+    });
+
+  });
 
   describe('paginated, sort, and filter', function() {
 
@@ -94,6 +108,32 @@ describe('Backbone.Obscura', function() {
         });
 
       assert(proxy.superset() === superset);
+    });
+
+    it('adding a model puts it in the correct place', function() {
+      proxy
+        .setPerPage(50)
+        .setSort('n', 'desc')
+        .filterBy('only even', function(model) {
+          return model.get('n') % 2 === 0;
+        });
+
+      var newModel = new Backbone.Model({ n: 502 });
+
+      var called = false;
+      proxy.on('add', function(model, collection, options) {
+        called = true;
+        assert(model === newModel);
+        assert(collection === proxy);
+        assert(options.at === 0);
+      });
+
+      // Add it to the superset in a location that has nothing to
+      // do with the desired final location
+      superset.add(newModel, { at: 300 });
+
+      assert(called);
+      assert(proxy.first() === newModel);
     });
 
   });
