@@ -14,8 +14,6 @@ This works particularly well with [Marionette's](https://github.com/marionettejs
 [CollectionView](https://github.com/marionettejs/backbone.marionette/blob/master/docs/marionette.collectionview.md) 
 and [CompositeView](https://github.com/marionettejs/backbone.marionette/blob/master/docs/marionette.compositeview.md).
 
-![Logo](https://raw.github.com/jmorrell/backbone.obscura/master/img/CameraObscura.jpg)
-
 ```javascript
 var proxy = new Backbone.Obscura(original);
 
@@ -44,9 +42,19 @@ $('button').on('click', function() {
 
 ### Where does the name come from?
 
+![Logo](https://raw.github.com/jmorrell/backbone.obscura/master/img/CameraObscura.jpg)
+
 The camera obscura is an optical device that projects an image of its surroundings 
 on a screen. In a similar way, we are using a crude projection of the original
 collection to "draw" our views.
+
+## Use Cases
+
+* You want to move pagination, filtering code out of your views
+* You have several ways of filtering down an in-memory collection (find-as-you-type, value ranges) that all need to work together
+* You have a collection that might be updated via push and need filtered view to react to this change
+* You have a centralized place where you manage your app's data, and need to visualize part of this data
+* You want to have an additional view that presents a different view on the same data (Top 5, Latest)
 
 ## Example
 
