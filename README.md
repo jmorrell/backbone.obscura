@@ -24,25 +24,17 @@ proxy
   .filterBy(function(model) {
     return model.get('age') > 17 && model.get('age') < 70;
   });
-```
 
-Read-only Backbone.Collection functions work on the transformed proxy
-
-```javascript
+// Read-only Backbone.Collection functions work on the transformed proxy
 proxy.toJSON();
 proxy.pluck('age');
 proxy.at(3);
 proxy.first();
-```
 
-`add`, `remove`, `change`, `reset` events are all forwarded for models in the proxy collection
-```
+// 'add', 'remove', 'change', 'reset' events are all forwarded for models in the proxy
 proxy.on('add', function() { /* ... */ });
-```
 
-Pass the proxy to a view that knows how to react to a changing collection
-
-```javascript
+// Pass the proxy to a view that knows how to react to a changing collection
 var view = new CollectionView({ collection: proxy });
 
 // In another view or a controller, you can modify the state of the filters
