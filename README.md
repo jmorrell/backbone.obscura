@@ -71,7 +71,7 @@ This library is effectively a convenience wrapper around [backbone-filtered-coll
 [backbone-sorted-collection](https://github.com/jmorrell/backbone-sorted-collection), 
 and [backbone-paginated-collection](https://github.com/jmorrell/backbone-paginated-collection).
 
-### new Backbone.Obscura(collection [, options])
+#### new Backbone.Obscura(collection [, options])
 
 Initialize a new Obscura collection by passing in the original collection.
 
@@ -91,6 +91,17 @@ Return a reference to the original collection.
 ```javascript
 proxy.superset();
 ```
+
+#### proxy.removeTransforms()
+
+Remove all filters, pagination settings, and sorting transforms. Afterwards the collection
+should be identical to the original collection.
+
+```
+proxy.removeTransforms();
+```
+
+### Filter methods
 
 #### proxy.filterBy([filterName], filter)
 
@@ -147,6 +158,109 @@ Can also be forced to run on one model in particular.
 proxy.refilter(model);
 ```
 
+### Sorting methods
+
+#### proxy.setSort(comparator, direction)
+
+`comparator` accepts:
+- nothing or `null`, resets the sorting to the same order as the superset
+- a string, sorts by a model key
+- a function that accepts a model and returns a value
+
+`direction` must be one of: `"asc"` or `"desc"`. If it's not provided it
+will default to `"asc"`.
+
+```javascript
+// sort by the 'age' property descending
+proxy.setSort('age', 'desc');
+
+// equivalent to this
+proxy.setSort(function(model) {
+  return model.get('age');
+}, 'desc');
+
+// but we can also do arbitrary computation in the closure
+proxy.setSort(function(mode) {
+  return someComplicatedCalculation(model);
+});
+
+// Characters with accents get sorted to the end of the alphabet, 
+// so let's sort based on the unaccented version.
+proxy.setSort(function(model) {
+  return removeAccents(model.get('name'));
+});
+
+// Pass nothing as an option to remove all sorting
+proxy.setSort();
+```
+#### proxy.removeSort
+
+Remove all sorting. Equivalent to calling `sorted.setSort()`
+
+```javascript
+proxy.removeSort();
+```
+
+#### proxy.reverseSort
+
+Reverse the sort. The API is chainable, so this can be called directly
+after `setSort` if you want the sort to be descending.
+
+If there is no current sort function then this does nothing.
+
+```javascript
+// Sort by age descending
+proxy.setSort('age').reverseSort();
+```
+
+### Pagination methods
+
+#### proxy.setPerPage(perPage)
+
+Change the number of models displayed per page. This will reset the current page to 0.
+
+#### proxy.setPage(page)
+
+Change the page. If the page is less than 0, it will be set to 0. If it is longer than
+the number of pages, the last page will be selected.
+
+#### proxy.getPerPage()
+
+Return the current setting for number of models per page.
+
+#### proxy.getNumPages()
+
+Return the current number of pages.
+
+#### proxy.getPage()
+
+Return the current page. E.G. if this returns 0, you're on the first page.
+
+#### proxy.hasNextPage()
+
+Returns true if this is not the last page.
+
+#### proxy.hasPrevPage()
+
+Returns true if this is not the first page.
+
+#### proxy.movePage(delta)
+
+Move `delta` pages forwards or backwards (if `delta` is negative).
+
+Ex: `paginated.movePage(-2)` will move two pages back.
+
+#### proxy.nextPage()
+
+Move to the next page. Equivalent to `paginated.movePage(1)`.
+
+#### proxy.prevPage()
+
+Move to the previous page. Equivalent to `paginated.movePage(-1)`.
+
+#### proxy.removePagination()
+
+Get rid of any paginated settings.
 
 ## Alternative Libraries
 
