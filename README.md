@@ -65,11 +65,36 @@ collection to "draw" our views.
 * You have a centralized place where you manage your app's data, and need to visualize part of this data
 * You want to have an additional view that presents a different view on the same data (Top 5, Latest)
 
-## Methods
+## How does it work?
 
 This library is effectively a convenience wrapper around [backbone-filtered-collection](https://github.com/jmorrell/backbone-filtered-collection),
 [backbone-sorted-collection](https://github.com/jmorrell/backbone-sorted-collection), 
-and [backbone-paginated-collection](https://github.com/jmorrell/backbone-paginated-collection).
+and [backbone-paginated-collection](https://github.com/jmorrell/backbone-paginated-collection). 
+The original libraries are exposed on the `Obscura` object.
+
+```javascript
+// backbone-filtered-collection
+Backbone.Obscura.FilteredCollection
+
+// backbone-sorted-collection
+Backbone.Obscura.SortedCollection
+
+// backbone-paginated-collection
+Backbone.Obscura.PaginatedCollection
+```
+
+You can think of `Backbone.Obscura` as a composition of these three transforms applied
+one after the other.
+
+```javascript
+var collection = new Backbone.Collection(/* data */);
+
+var filtered = new FilteredCollection(collection);
+var sorted   = new SortedCollection(filtered);
+var obscura  = new PaginatedCollection(sorted);
+```
+
+## Methods
 
 #### new Backbone.Obscura(collection [, options])
 
