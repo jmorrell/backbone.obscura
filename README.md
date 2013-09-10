@@ -49,7 +49,7 @@ $('button').on('click', function() {
 
 [![Build Status](https://secure.travis-ci.org/jmorrell/backbone.obscura.png?branch=master)](http://travis-ci.org/jmorrell/backbone.obscura)
 
-### Where does the name come from?
+### What's with the name?
 
 ![Logo](https://raw.github.com/jmorrell/backbone.obscura/master/img/CameraObscura.jpg)
 
@@ -71,9 +71,82 @@ This library is effectively a convenience wrapper around [backbone-filtered-coll
 [backbone-sorted-collection](https://github.com/jmorrell/backbone-sorted-collection), 
 and [backbone-paginated-collection](https://github.com/jmorrell/backbone-paginated-collection).
 
-### new Backbone.Obscura(collection, options)
+### new Backbone.Obscura(collection [, options])
 
-TODO
+Initialize a new Obscura collection by passing in the original collection.
+
+```javascript
+var proxy = new Backbone.Obscura(originalCollection);
+```
+
+You may also optionally pass an options hash. Currently the only supported option is setting the `perPage` setting of the paginated transform.
+```javascript
+var proxy = new Backbone.Obscura(originalCollection, { perPage: 25 });
+```
+
+#### proxy.superset()
+
+Return a reference to the original collection.
+
+```javascript
+proxy.superset();
+```
+
+#### proxy.filterBy([filterName], filter)
+
+Apply a new filter to the set. Takes an optional filter name.
+
+Can be a simple object that defines required key / value pairs.
+```javascript
+filtered.filterBy('foo and bar filter', { foo: 2, bar: 3 });
+```
+
+Or the you can pass a filter function instead of a value.
+```javascript
+filtered.filterBy('a > 2', { a: function(val) { 
+  return val > 2;
+}});
+```
+
+Or you can use an arbitrary filter function on the model itself.
+
+```javascript
+filtered.filterBy('age', function(model) {
+  return model.get('age') > 10 && model.get('age') < 40;
+});
+```
+
+#### proxy.removeFilter(filterName)
+
+Remove a previously applied filter. Accepts a filter name.
+
+```javascript
+proxy.removeFilter('age');
+```
+
+#### proxy.resetFilters()
+
+Removes all applied filters. After the collection should be the same as the superset.
+
+```javascript
+proxy.resetFilters();
+```
+
+#### proxy.refilter()
+
+If the collections get out of sync (ex: change events have been suppressed) force
+the collection to refilter all of the models.
+
+```javascript
+proxy.refilter();
+```
+
+Can also be forced to run on one model in particular.
+
+```javascript
+proxy.refilter(model);
+```
+
 
 ## Alternative Libraries
 
