@@ -137,7 +137,7 @@ proxy.removeFilter('age');
 
 #### proxy.resetFilters()
 
-Removes all applied filters. After the collection should be the same as the superset.
+Removes all applied filters.
 
 ```javascript
 proxy.resetFilters();
@@ -219,48 +219,110 @@ proxy.setSort('age').reverseSort();
 
 Change the number of models displayed per page. This will reset the current page to 0.
 
+```javascript
+proxy.setPerPage(50);
+```
+
 #### proxy.setPage(page)
 
 Change the page. If the page is less than 0, it will be set to 0. If it is longer than
 the number of pages, the last page will be selected.
 
+```javascript
+proxy.setPage(5);
+```
+
 #### proxy.getPerPage()
 
 Return the current setting for number of models per page.
+
+```javascript
+proxy.getPerPage();
+```
 
 #### proxy.getNumPages()
 
 Return the current number of pages.
 
+```javascript
+proxy.getNumPages();
+```
+
 #### proxy.getPage()
 
 Return the current page. E.G. if this returns 0, you're on the first page.
+
+```javascript
+proxy.getPage();
+```
 
 #### proxy.hasNextPage()
 
 Returns true if this is not the last page.
 
+```javascript
+proxy.hasNextPage();
+```
+
 #### proxy.hasPrevPage()
 
 Returns true if this is not the first page.
+
+```javascript
+proxy.hasPrevPage();
+```
 
 #### proxy.movePage(delta)
 
 Move `delta` pages forwards or backwards (if `delta` is negative).
 
-Ex: `paginated.movePage(-2)` will move two pages back.
+```javascript
+// will move two pages back
+proxy.movePage(-2);
+```
 
 #### proxy.nextPage()
 
 Move to the next page. Equivalent to `paginated.movePage(1)`.
 
+```javascript
+proxy.nextPage();
+```
+
 #### proxy.prevPage()
 
 Move to the previous page. Equivalent to `paginated.movePage(-1)`.
 
+```javascript
+proxy.prevPage();
+```
+
 #### proxy.removePagination()
 
 Get rid of any paginated settings.
+
+```javascript
+proxy.removePagination();
+```
+
+## Events
+
+`add`, `remove`, `change`, `reset` should fire as you expect.
+
+`filtered:add` - Fired when a new filter is added. Passes the filter name.
+
+`filtered:remove` - Fired with a filter is removed. Passes the filter name.
+
+`filtered:reset` - Fired when all of the filters are removed.
+
+`sorted:add` - Trigger when a sort function is set
+
+`sorted:remove` - Trigger when a sort function is removed
+
+`paginated:change:perPage` - Fired whenever the number of models per page is changed. If you
+                             remove the pagination settings, `perPage` will be passed as `null`.
+
+`paginated:change:page` - Fired whenever the page is changed.
 
 ## Alternative Libraries
 
