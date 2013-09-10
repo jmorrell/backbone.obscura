@@ -39,11 +39,11 @@
     "test": "./node_modules/.bin/karma start --browsers Firefox --single-run"
   },
   "dependencies": {
-    "backbone-paginated-collection": "~0.2.0",
-    "backbone-filtered-collection": "~0.2.0",
+    "backbone-paginated-collection": "~0.3.0",
+    "backbone-filtered-collection": "~0.3.0",
     "underscore": "~1.5.1",
     "backbone": "~1.0.0",
     "backbone-sorted-collection": "~0.3.0",
-    "backbone-collection-proxy": "~0.1.0"
+    "backbone-collection-proxy": "~0.2.0"
   }
 }

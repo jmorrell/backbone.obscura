@@ -109,7 +109,7 @@ Obscura.PaginatedCollection = PaginatedCollection;
 module.exports = Obscura;
 
 
-},{"./src/proxy-events.js":12,"backbone":false,"backbone-collection-proxy":2,"backbone-filtered-collection":3,"backbone-paginated-collection":6,"backbone-sorted-collection":9,"underscore":false}],2:[function(require,module,exports){
+},{"./src/proxy-events.js":11,"backbone":false,"backbone-collection-proxy":2,"backbone-filtered-collection":3,"backbone-paginated-collection":6,"backbone-sorted-collection":8,"underscore":false}],2:[function(require,module,exports){
 
 var _ = require('underscore');
 var Backbone = require('backbone');
@@ -404,35 +404,23 @@ var blacklistedMethods = [
   "listenTo", "listenToOnce", "bind", "trigger", "once", "stopListening"
 ];
 
-var eventWhiteList = [
-  'add', 'remove', 'reset', 'sort', 'destroy'
-];
-
 function proxyCollection(from, target) {
 
   function updateLength() {
     target.length = from.length;
   }
 
-  function pipeEvents(eventName) {
+  function pipeEvents() {
     var args = _.toArray(arguments);
-    var isChangeEvent = eventName === 'change' ||
-                        eventName.slice(0, 7) === 'change:';
 
-    if (_.contains(eventWhiteList, eventName)) {
-      if (_.contains(['add', 'remove', 'destory'], eventName)) {
-        args[2] = target;
-      } else if (_.contains(['reset', 'sort'], eventName)) {
-        args[1] = target;
-      }
-      target.trigger.apply(this, args);
-    } else if (isChangeEvent) {
-      // In some cases I was seeing change events fired after the model
-      // had already been removed from the collection.
-      if (target.contains(args[1])) {
-        target.trigger.apply(this, args);
+    // replace any references to `from` with `this`
+    for (var i = 1; i < args.length; i++) {
+      if (args[i] && args[i].length && args[i].length === from.length) {
+        args[i] = this;
       }
     }
+
+    this.trigger.apply(this, args);
   }
 
   var methods = {};
@@ -782,9 +770,7 @@ function proxyCollection(from, target) {
 module.exports = proxyCollection;
 
 
-},{"backbone":false,"underscore":false}],"obscura":[function(require,module,exports){
-module.exports=require('HusaU0');
-},{}],9:[function(require,module,exports){
+},{"backbone":false,"underscore":false}],8:[function(require,module,exports){
 
 var _ = require('underscore');
 var Backbone =require('backbone');
@@ -886,7 +872,7 @@ _.extend(Sorted.prototype, methods, Backbone.Events);
 module.exports = Sorted;
 
 
-},{"./src/reverse-sorted-index.js":11,"backbone":false,"backbone-collection-proxy":10,"underscore":false}],10:[function(require,module,exports){
+},{"./src/reverse-sorted-index.js":10,"backbone":false,"backbone-collection-proxy":9,"underscore":false}],9:[function(require,module,exports){
 
 var _ = require('underscore');
 var Backbone = require('backbone');
@@ -940,7 +926,7 @@ function proxyCollection(from, target) {
 module.exports = proxyCollection;
 
 
-},{"backbone":false,"underscore":false}],11:[function(require,module,exports){
+},{"backbone":false,"underscore":false}],10:[function(require,module,exports){
 
 var _ = require('underscore');
 
@@ -967,7 +953,7 @@ function reverseSortedIndex(array, obj, iterator, context) {
 
 module.exports = reverseSortedIndex;
 
-},{"underscore":false}],12:[function(require,module,exports){
+},{"underscore":false}],11:[function(require,module,exports){
 function proxyEvents(from, eventNames) {
   _.each(eventNames, function(eventName) {
     this.listenTo(from, eventName, function() {
@@ -980,6 +966,8 @@ function proxyEvents(from, eventNames) {
 
 module.exports = proxyEvents;
 
+},{}],"obscura":[function(require,module,exports){
+module.exports=require('HusaU0');
 },{}]},{},[])
 ;
 return require('obscura');
