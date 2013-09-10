@@ -65,12 +65,6 @@ collection to "draw" our views.
 * You have a centralized place where you manage your app's data, and need to visualize part of this data
 * You want to have an additional view that presents a different view on the same data (Top 5, Latest)
 
-## Example
-
-```javascript
-// TODO
-```
-
 ## Methods
 
 This library is effectively a convenience wrapper around [backbone-filtered-collection](https://github.com/jmorrell/backbone-filtered-collection),
@@ -82,10 +76,22 @@ and [backbone-paginated-collection](https://github.com/jmorrell/backbone-paginat
 TODO
 
 ## Alternative Libraries
-[Backbone.Projections](https://github.com/andreypopp/backbone.projections)
-[backbone.collectionsubset](https://github.com/anthonyshort/backbone.collectionsubset)
-[Backbone.VirtualCollection](https://github.com/p3drosola/Backbone.VirtualCollection)
-[Backbone.Subset](https://github.com/masylum/Backbone.Subset)
+
+There are several libraries that offer similar functionality, but none that offered the combination of features that I wanted.
+
+* JavaScript, not CoffeeScript
+* No need to define filters or sorting on initialization
+* Ability to use arbitrary functions for filters or sorting
+* Transparency, if no transforms are defined, the proxy should be the same as the original collection
+* Ability to add and remove multiple filters
+* Easy to use with Browserify, but also easy to throw into an AMD project
+
+If this library doesn't meet your needs, maybe one of the following list will:
+
+* [Backbone.Projections](https://github.com/andreypopp/backbone.projections)
+* [backbone.collectionsubset](https://github.com/anthonyshort/backbone.collectionsubset)
+* [Backbone.VirtualCollection](https://github.com/p3drosola/Backbone.VirtualCollection)
+* [Backbone.Subset](https://github.com/masylum/Backbone.Subset)
 
 ## Installation
 
