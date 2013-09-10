@@ -24,17 +24,25 @@ proxy
   .filterBy(function(model) {
     return model.get('age') > 17 && model.get('age') < 70;
   });
+```
 
-// Read-only Backbone.Collection functions work on the transformed proxy
+Read-only Backbone.Collection functions work on the transformed proxy
+
+```javascript
 proxy.toJSON();
 proxy.pluck('age');
 proxy.at(3);
 proxy.first();
+```
 
-// 'add', 'remove', 'change', 'reset' events are all forwarded for models in the proxy
+`add`, `remove`, `change`, `reset` events are all forwarded for models in the proxy collection
+```
 proxy.on('add', function() { /* ... */ });
+```
 
-// Pass the proxy to a view that knows how to react to a changing collection
+Pass the proxy to a view that knows how to react to a changing collection
+
+```javascript
 var view = new CollectionView({ collection: proxy });
 
 // In another view or a controller, you can modify the state of the filters
@@ -86,7 +94,7 @@ There are several libraries that offer similar functionality, but none that offe
 * Ability to add and remove multiple filters
 * Easy to use with Browserify, but also easy to throw into an AMD project
 
-If this library doesn't meet your needs, maybe one of the following list will:
+If this library doesn't meet your needs, maybe one of the following will:
 
 * [Backbone.Projections](https://github.com/andreypopp/backbone.projections)
 * [backbone.collectionsubset](https://github.com/anthonyshort/backbone.collectionsubset)
@@ -164,4 +172,5 @@ MIT
 ## Acknowledgements
 
 [Photo](http://www.flickr.com/photos/garunaborbor/8787779395) taken from Flickr, licensed under Creative Commons
+
 [Photo](http://commons.wikimedia.org/wiki/File:Camera_Obscura_box18thCentury.jpg) taken from Wikimedia, and is in the public domain
