@@ -5,6 +5,50 @@ describe('PaginatedCollection', function() {
   var superset, paginated;
   var mockData = _.map(_.range(100), function(i) { return { n: i }; });
 
+  describe('empty superset', function() {
+
+    beforeEach(function() {
+      superset = new Backbone.Collection([]);
+      paginated = new Backbone.Obscura(superset);
+    });
+
+    it('should have 0 pages', function() {
+      assert(paginated.getNumPages() === 0);
+    });
+
+    it('should have 0 length', function() {
+      assert(paginated.length === 0);
+    });
+
+    it('should not have a next or previous page', function() {
+      assert(!paginated.hasNextPage());
+      assert(!paginated.hasPrevPage());
+    });
+
+  });
+
+  describe('empty superset with perPage', function() {
+
+    beforeEach(function() {
+      superset = new Backbone.Collection([]);
+      paginated = new Backbone.Obscura(superset, { perPage: 10 });
+    });
+
+    it('should have 0 pages', function() {
+      assert(paginated.getNumPages() === 0);
+    });
+
+    it('should have 0 length', function() {
+      assert(paginated.length === 0);
+    });
+
+    it('should not have a next or previous page', function() {
+      assert(!paginated.hasNextPage());
+      assert(!paginated.hasPrevPage());
+    });
+
+  });
+
   describe('With no options', function() {
 
     beforeEach(function() {
@@ -787,6 +831,65 @@ describe('PaginatedCollection', function() {
 
   });
 
-});
+  describe('destroying the proxy', function() {
 
+    beforeEach(function() {
+      superset = new Backbone.Collection(mockData);
+      paginated = new Backbone.Obscura(superset, { perPage: 15 });
+    });
+
+    it('should fire an event on destruction', function() {
+      var called = false;
+      paginated.on('obscura:destroy', function() {
+        called = true;
+      });
+
+      paginated.destroy();
+      assert(called);
+    });
+
+    it('should fire no other events on destruction', function() {
+      var called = false;
+      paginated.on('all', function(e) {
+        if (e !== 'obscura:destroy') {
+          called = true;
+        }
+      });
+
+      paginated.destroy();
+      assert(!called);
+    });
+
+    it('should have 0 length and 0 pages afterward', function() {
+      paginated.destroy();
+      assert(paginated.length === 0);
+      assert(paginated.getNumPages() === 0);
+    });
+
+    it('should not repond to changes in the superset', function() {
+      paginated.destroy();
+      superset.add({ n: 9000 });
+
+      assert(paginated.length === 0);
+      assert(paginated.getNumPages() === 0);
+    });
+
+    it('should emit no events after', function() {
+      paginated.destroy();
+
+      var called = false;
+      paginated.on('all', function(e) {
+        called = true;
+      });
+
+      superset.add({ n: 9000 });
+      superset.remove(superset.first());
+      superset.reset([{ n: 1 }]);
+
+      assert(!called);
+    });
+
+  });
+
+});
 

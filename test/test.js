@@ -138,6 +138,91 @@ describe('Backbone.Obscura', function() {
 
   });
 
+  describe("destroying the proxy", function() {
+
+    beforeEach(function() {
+      proxy
+        .setPerPage(50)
+        .setSort('n', 'desc')
+        .filterBy('only even', function(model) {
+          return model.get('n') % 2 === 0;
+        });
+
+    });
+
+    it('should have 0 length', function() {
+      proxy.destroy();
+      assert(proxy.length === 0);
+    });
+
+    it('should have no pages', function() {
+      proxy.destroy();
+      assert(proxy.getNumPages() === 0);
+    });
+
+    it('should not repond to changes in the superset', function() {
+      proxy.destroy();
+
+      superset.add({ n: 9000 });
+
+      assert(proxy.length === 0);
+      assert(proxy.getNumPages() === 0);
+    });
+
+    it('should emit no events', function() {
+      proxy.destroy();
+
+      var called = false;
+      proxy.on('all', function(e) {
+        called = true;
+      });
+
+      superset.add({ n: 9000 });
+      superset.remove(superset.first());
+      superset.reset([{ n: 1 }]);
+
+      assert(!called);
+    });
+
+    it('should fire an event on destruction', function() {
+      var called = false;
+      proxy.on('obscura:destroy', function() {
+        called = true;
+      });
+
+      proxy.destroy();
+      assert(called);
+    });
+
+    it('should fire no other events on destruction', function() {
+      var called = false;
+      proxy.on('all', function(e) {
+        if (e !== 'obscura:destroy') {
+          called = true;
+        }
+      });
+
+      proxy.destroy();
+      assert(!called);
+    });
+
+    it('should emit no events after', function() {
+      proxy.destroy();
+
+      var called = false;
+      proxy.on('all', function(e) {
+        called = true;
+      });
+
+      superset.add({ n: 9000 });
+      superset.remove(superset.first());
+      superset.reset([{ n: 1 }]);
+
+      assert(!called);
+    });
+
+  });
+
 });
 
 

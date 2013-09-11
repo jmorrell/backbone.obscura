@@ -32,6 +32,16 @@ var methods = {
     this._sorted.removeSort();
     this._paginated.removePagination();
     return this;
+  },
+
+  destroy: function() {
+    this.stopListening();
+    this._filtered.destroy();
+    this._sorted.destroy();
+    this._paginated.destroy();
+    this.length = 0;
+
+    this.trigger('obscura:destroy');
   }
 
 };

@@ -458,5 +458,57 @@ describe('sorted collection', function() {
 
   });
 
-});
+  describe('destroying the proxy', function() {
 
+    it('should fire an event on destruction', function() {
+      var called = false;
+      sorted.on('obscura:destroy', function() {
+        called = true;
+      });
+
+      sorted.destroy();
+      assert(called);
+    });
+
+    it('should fire no other events on destruction', function() {
+      var called = false;
+      sorted.on('all', function(e) {
+        if (e !== 'obscura:destroy') {
+          called = true;
+        }
+      });
+
+      sorted.destroy();
+      assert(!called);
+    });
+
+    it('should have 0 length afterward', function() {
+      sorted.destroy();
+      assert(sorted.length === 0);
+    });
+
+    it('should not repond to changes in the superset', function() {
+      sorted.destroy();
+      superset.add({ n: 9000 });
+
+      assert(sorted.length === 0);
+    });
+
+    it('should emit no events after', function() {
+      sorted.destroy();
+
+      var called = false;
+      sorted.on('all', function(e) {
+        called = true;
+      });
+
+      superset.add({ n: 9000 });
+      superset.remove(superset.first());
+      superset.reset([{ n: 1 }]);
+
+      assert(!called);
+    });
+
+  });
+
+});

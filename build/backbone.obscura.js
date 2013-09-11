@@ -45,6 +45,16 @@ var methods = {
     this._sorted.removeSort();
     this._paginated.removePagination();
     return this;
+  },
+
+  destroy: function() {
+    this.stopListening();
+    this._filtered.destroy();
+    this._sorted.destroy();
+    this._paginated.destroy();
+    this.length = 0;
+
+    this.trigger('obscura:destroy');
   }
 
 };
@@ -109,7 +119,7 @@ Obscura.PaginatedCollection = PaginatedCollection;
 module.exports = Obscura;
 
 
-},{"./src/proxy-events.js":11,"backbone":false,"backbone-collection-proxy":2,"backbone-filtered-collection":3,"backbone-paginated-collection":6,"backbone-sorted-collection":8,"underscore":false}],2:[function(require,module,exports){
+},{"./src/proxy-events.js":12,"backbone":false,"backbone-collection-proxy":2,"backbone-filtered-collection":3,"backbone-paginated-collection":6,"backbone-sorted-collection":8,"underscore":false}],2:[function(require,module,exports){
 
 var _ = require('underscore');
 var Backbone = require('backbone');
@@ -381,6 +391,15 @@ var methods = {
     }
 
     return this;
+  },
+
+  destroy: function() {
+    this.stopListening();
+    this._collection.reset([]);
+    this._superset = this._collection;
+    this.length = 0;
+
+    this.trigger('filtered:destroy');
   }
 
 };
@@ -670,7 +689,7 @@ var methods = {
   },
 
   getPerPage: function() {
-    return this._perPage || this.superset().length;
+    return this._perPage || this.superset().length || 1;
   },
 
   getNumPages: function() {
@@ -706,6 +725,17 @@ var methods = {
 
   superset: function() {
     return this._superset;
+  },
+
+  destroy: function() {
+    this.stopListening();
+    this._collection.reset([]);
+    this._superset = this._collection;
+    this._page = 0;
+    this._totalPages = 0;
+    this.length = 0;
+
+    this.trigger('paginated:destroy');
   }
 
 };
@@ -862,6 +892,15 @@ var methods = {
 
   superset: function() {
     return this._superset;
+  },
+
+  destroy: function() {
+    this.stopListening();
+    this._collection.reset([]);
+    this._superset = this._collection;
+    this.length = 0;
+
+    this.trigger('sorted:destroy');
   }
 
 };
@@ -872,7 +911,9 @@ _.extend(Sorted.prototype, methods, Backbone.Events);
 module.exports = Sorted;
 
 
-},{"./src/reverse-sorted-index.js":10,"backbone":false,"backbone-collection-proxy":9,"underscore":false}],9:[function(require,module,exports){
+},{"./src/reverse-sorted-index.js":11,"backbone":false,"backbone-collection-proxy":10,"underscore":false}],"obscura":[function(require,module,exports){
+module.exports=require('HusaU0');
+},{}],10:[function(require,module,exports){
 
 var _ = require('underscore');
 var Backbone = require('backbone');
@@ -926,7 +967,7 @@ function proxyCollection(from, target) {
 module.exports = proxyCollection;
 
 
-},{"backbone":false,"underscore":false}],10:[function(require,module,exports){
+},{"backbone":false,"underscore":false}],11:[function(require,module,exports){
 
 var _ = require('underscore');
 
@@ -953,7 +994,7 @@ function reverseSortedIndex(array, obj, iterator, context) {
 
 module.exports = reverseSortedIndex;
 
-},{"underscore":false}],11:[function(require,module,exports){
+},{"underscore":false}],12:[function(require,module,exports){
 function proxyEvents(from, eventNames) {
   _.each(eventNames, function(eventName) {
     this.listenTo(from, eventName, function() {
@@ -966,8 +1007,6 @@ function proxyEvents(from, eventNames) {
 
 module.exports = proxyEvents;
 
-},{}],"obscura":[function(require,module,exports){
-module.exports=require('HusaU0');
 },{}]},{},[])
 ;
 return require('obscura');

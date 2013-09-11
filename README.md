@@ -126,6 +126,12 @@ should be identical to the original collection.
 proxy.removeTransforms();
 ```
 
+#### proxy.destroy()
+
+Remove all ties to the superset and stop updating. Will now be garbage 
+collected when it falls out of scope.
+
+
 ### Filter methods
 
 #### proxy.filterBy([filterName], filter)
@@ -348,6 +354,8 @@ proxy.removePagination();
                              remove the pagination settings, `perPage` will be passed as `null`.
 
 `paginated:change:page` - Fired whenever the page is changed.
+
+`obscura:destroy` - Fired when the proxy is destroyed
 
 ## Alternative Libraries
 
