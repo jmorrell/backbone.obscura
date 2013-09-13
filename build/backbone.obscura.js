@@ -81,12 +81,12 @@ var sortedEvents = [
 var paginatedMethods = [
   'setPerPage', 'setPage', 'getPerPage', 'getNumPages', 'getPage',
   'hasNextPage', 'hasPrevPage', 'nextPage', 'prevPage', 'movePage',
-  'removePagination'
+  'removePagination', 'firstPage', 'lastPage'
 ];
 
 // Events fired from `this._paginated` that we will forward
 var paginatedEvents = [
-  'paginated:change:perPage', 'paginated:change:page'
+  'paginated:change:perPage', 'paginated:change:page', 'paginated:change:numPages'
 ];
 
 _.each(filteredMethods, function(method) {
@@ -119,7 +119,7 @@ Obscura.PaginatedCollection = PaginatedCollection;
 module.exports = Obscura;
 
 
-},{"./src/proxy-events.js":12,"backbone":false,"backbone-collection-proxy":2,"backbone-filtered-collection":3,"backbone-paginated-collection":6,"backbone-sorted-collection":8,"underscore":false}],2:[function(require,module,exports){
+},{"./src/proxy-events.js":11,"backbone":false,"backbone-collection-proxy":2,"backbone-filtered-collection":3,"backbone-paginated-collection":6,"backbone-sorted-collection":8,"underscore":false}],2:[function(require,module,exports){
 
 var _ = require('underscore');
 var Backbone = require('backbone');
@@ -565,6 +565,7 @@ function updatePagination() {
 }
 
 function updateNumPages() {
+  var currentNumPages = this._totalPages;
   var length = this.superset().length;
   var perPage = this.getPerPage();
 
@@ -574,7 +575,12 @@ function updateNumPages() {
   var totalPages = length % perPage === 0 ?
     (length / perPage) : Math.floor(length / perPage) + 1;
 
+  var numPagesChanged = this._totalPages !== totalPages;
   this._totalPages = totalPages;
+
+  if (numPagesChanged) {
+    this.trigger('paginated:change:numPages', { numPages: totalPages });
+  }
 
   // Test to see if we are past the last page, and if so,
   // move back. Return true so that we can test to see if
@@ -680,6 +686,7 @@ var methods = {
     // set it to the limit.
     page = page > lowerLimit ? page : lowerLimit;
     page = page < upperLimit ? page : upperLimit;
+    page = page < 0 ? 0 : page;
 
     this._page = page;
     updatePagination.call(this);
@@ -716,6 +723,14 @@ var methods = {
   prevPage: function() {
     this.movePage(-1);
     return this;
+  },
+
+  firstPage: function() {
+    this.setPage(0);
+  },
+
+  lastPage: function() {
+    this.setPage(this.getNumPages() - 1);
   },
 
   movePage: function(delta) {
@@ -911,9 +926,7 @@ _.extend(Sorted.prototype, methods, Backbone.Events);
 module.exports = Sorted;
 
 
-},{"./src/reverse-sorted-index.js":11,"backbone":false,"backbone-collection-proxy":10,"underscore":false}],"obscura":[function(require,module,exports){
-module.exports=require('HusaU0');
-},{}],10:[function(require,module,exports){
+},{"./src/reverse-sorted-index.js":10,"backbone":false,"backbone-collection-proxy":9,"underscore":false}],9:[function(require,module,exports){
 
 var _ = require('underscore');
 var Backbone = require('backbone');
@@ -967,7 +980,7 @@ function proxyCollection(from, target) {
 module.exports = proxyCollection;
 
 
-},{"backbone":false,"underscore":false}],11:[function(require,module,exports){
+},{"backbone":false,"underscore":false}],10:[function(require,module,exports){
 
 var _ = require('underscore');
 
@@ -994,7 +1007,7 @@ function reverseSortedIndex(array, obj, iterator, context) {
 
 module.exports = reverseSortedIndex;
 
-},{"underscore":false}],12:[function(require,module,exports){
+},{"underscore":false}],11:[function(require,module,exports){
 function proxyEvents(from, eventNames) {
   _.each(eventNames, function(eventName) {
     this.listenTo(from, eventName, function() {
@@ -1007,6 +1020,8 @@ function proxyEvents(from, eventNames) {
 
 module.exports = proxyEvents;
 
+},{}],"obscura":[function(require,module,exports){
+module.exports=require('HusaU0');
 },{}]},{},[])
 ;
 return require('obscura');

@@ -147,7 +147,6 @@ describe('Backbone.Obscura', function() {
         .filterBy('only even', function(model) {
           return model.get('n') % 2 === 0;
         });
-
     });
 
     it('should have 0 length', function() {

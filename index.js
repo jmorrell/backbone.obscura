@@ -68,12 +68,12 @@ var sortedEvents = [
 var paginatedMethods = [
   'setPerPage', 'setPage', 'getPerPage', 'getNumPages', 'getPage',
   'hasNextPage', 'hasPrevPage', 'nextPage', 'prevPage', 'movePage',
-  'removePagination'
+  'removePagination', 'firstPage', 'lastPage'
 ];
 
 // Events fired from `this._paginated` that we will forward
 var paginatedEvents = [
-  'paginated:change:perPage', 'paginated:change:page'
+  'paginated:change:perPage', 'paginated:change:page', 'paginated:change:numPages'
 ];
 
 _.each(filteredMethods, function(method) {

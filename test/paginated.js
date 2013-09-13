@@ -34,6 +34,10 @@ describe('PaginatedCollection', function() {
       paginated = new Backbone.Obscura(superset, { perPage: 10 });
     });
 
+    it('should be on the 0th page', function() {
+      assert(paginated.getPage() === 0);
+    });
+
     it('should have 0 pages', function() {
       assert(paginated.getNumPages() === 0);
     });
@@ -45,6 +49,36 @@ describe('PaginatedCollection', function() {
     it('should not have a next or previous page', function() {
       assert(!paginated.hasNextPage());
       assert(!paginated.hasPrevPage());
+    });
+
+    it("changing the page doesn't change the page", function() {
+      paginated.nextPage();
+      assert(paginated.getPage() === 0);
+
+      paginated.prevPage();
+      assert(paginated.getPage() === 0);
+
+      paginated.movePage(2);
+      assert(paginated.getPage() === 0);
+
+      paginated.movePage(-2);
+      assert(paginated.getPage() === 0);
+
+      paginated.firstPage();
+      assert(paginated.getPage() === 0);
+
+      paginated.lastPage();
+      assert(paginated.getPage() === 0);
+    });
+
+    it('adding a model should increase the length', function() {
+      assert(paginated.length === 0);
+
+      superset.add({ n: 1 });
+      assert(paginated.length === 1);
+
+      superset.add({ n: 2 });
+      assert(paginated.length === 2);
     });
 
   });
@@ -203,6 +237,26 @@ describe('PaginatedCollection', function() {
 
       paginated.movePage(-100);
       assert(paginated.getPage() === 0);
+    });
+
+    it('should be able to jump to the first page', function() {
+      paginated.setPage(3);
+
+      paginated.firstPage();
+
+      assert(paginated.getPage() === 0);
+      assert(paginated.hasNextPage());
+      assert(!paginated.hasPrevPage());
+    });
+
+    it('should be able to jump to the last page', function() {
+      paginated.setPage(3);
+
+      paginated.lastPage();
+
+      assert(paginated.getPage() === 6);
+      assert(!paginated.hasNextPage());
+      assert(paginated.hasPrevPage());
     });
 
     it('`removePagination` should remove all pagination settings', function() {
@@ -829,6 +883,41 @@ describe('PaginatedCollection', function() {
       called = false;
     });
 
+    it('paginated:change:numPages', function() {
+      var called = false;
+      var numPages;
+
+      paginated.on('paginated:change:numPages', function(details) {
+        numPages = details.numPages;
+        called = true;
+      });
+
+      assert(!called);
+
+      // The last page has 10 models, so if we get rid of them the number
+      // of pages will change
+
+      // remove the first 9, nothing happens
+      for (var i = 0; i < 9; i += 1) {
+        superset.remove(superset.last());
+      }
+
+      assert(!called);
+
+      // remove the last model on the last page, and the event should fire
+      superset.remove(superset.last());
+
+      assert(called);
+      assert(numPages === 6);
+
+      // Now let's add another model to make sure we fire the event again
+      called = false;
+      numPages = null;
+      superset.add({ n: 1000 });
+      assert(called);
+      assert(numPages === 7);
+    });
+
   });
 
   describe('destroying the proxy', function() {
@@ -892,4 +981,5 @@ describe('PaginatedCollection', function() {
   });
 
 });
+
 
