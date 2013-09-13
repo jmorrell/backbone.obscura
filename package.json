@@ -1,10 +1,23 @@
 {
   "name": "backbone.obscura",
-  "description": "",
+  "description": "A read-only proxy of a Backbone.Collection that can easily be filtered, sorted, and paginated.",
   "version": "0.1.0",
   "homepage": "https://github.com/jmorrell/backbone.obscura",
   "main": "index.js",
   "license": "MIT",
+  "keywords": [
+    "backbone",
+    "plugin",
+    "filtering",
+    "filter",
+    "sorting",
+    "pagination",
+    "paginating",
+    "collection",
+    "client",
+    "browser",
+    "browserify"
+  ],
   "author": {
     "name": "Jeremy Morrell",
     "email": "morrell.jeremy@gmail.com",

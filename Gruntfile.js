@@ -4,7 +4,7 @@ module.exports = function (grunt) {
     browserify: {
       basic: {
         src: [],
-        dest: 'build/backbone.obscura.js',
+        dest: './backbone.obscura.js',
         options: {
           external: [ 'underscore', 'backbone' ],
           alias: ['./index.js:obscura']
@@ -14,7 +14,7 @@ module.exports = function (grunt) {
 
     umd: {
       default: {
-        src: 'build/backbone.obscura.js',
+        src: './backbone.obscura.js',
         template: './templates/umd.hbs',
         objectToExport: "require('obscura')",
         globalAlias: 'Backbone.Obscura',
