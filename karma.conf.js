@@ -8,7 +8,7 @@ module.exports = function(config) {
     files: [
       'bower_components/underscore/underscore.js',
       'bower_components/backbone/backbone.js',
-      'build/backbone.obscura.js',
+      'backbone.obscura.js',
       'bower_components/chai/chai.js',
       'test/**/*.js'
     ],
