@@ -1,0 +1,38 @@
+{
+  "name": "backbone.obscura",
+  "description": "A read-only proxy of a Backbone.Collection that can easily be filtered, sorted, and paginated.",
+  "version": "0.1.0",
+  "homepage": "https://github.com/jmorrell/backbone.obscura",
+  "main": "backbone.obscura.js",
+  "license": "MIT",
+  "ignore": [
+    "test",
+    ".jshintrc",
+    ".travis.yml",
+    "CHANGELOG.md",
+    "karma.conf.js",
+    "package.json",
+    "images",
+    "templates",
+    "Gruntfile.js"
+  ],
+  "dependencies": {
+    "backbone": "~1.0.0",
+    "underscore": "~1.5.1"
+  },
+  "devDependencies": {
+    "chai": "*",
+    "backbone": "~1.0.0",
+    "underscore": "~1.5.1"
+  },
+  "_release": "0.1.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.1.0",
+    "commit": "c07159462a2dfd3c92d2331808ff5a78788f8a43"
+  },
+  "_source": "git://github.com/jmorrell/backbone.obscura.git",
+  "_target": "~0.1.0",
+  "_originalSource": "backbone.obscura",
+  "_direct": true
+}
