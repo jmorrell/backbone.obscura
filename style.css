@@ -1,0 +1,96 @@
+#container {
+  min-width: 920px;
+}
+
+.superset-controls {
+  height: 100%;
+  width: 20%;
+  display: inline-block;
+  vertical-align: top;
+  padding: 2rem;
+}
+
+.obscura-controls {
+  height: 100%;
+  width: 20%;
+  display: inline-block;
+  vertical-align: top;
+  padding: 2rem;
+}
+
+.obscura-controls .topcoat-text-input {
+  width: 80px;
+}
+
+.superset {
+  height: 100%;
+  display: inline-block;
+  vertical-align: top;
+  margin: 20px;
+}
+
+.obscura {
+  height: 100%;
+  display: inline-block;
+  vertical-align: top;
+  margin: 20px;
+}
+
+.obscura ul {
+  min-height: 400px;
+}
+
+.topcoat-list__item {
+  padding-bottom: 3px;
+  padding-top: 3px;
+  width: 250px;
+}
+
+.topcoat-list__item img {
+  height: 60px;
+  width: 60px;
+  border-radius: 10px;
+  margin: 0 10px 0 0;
+  padding: 4px;
+  display: inline-block;
+}
+
+.topcoat-list__item h3 {
+  margin-top: 0px;
+  margin-bottom: 3px;
+  font-size: 20px;
+  font-weight: 400;
+}
+
+.topcoat-list__item span {
+  padding-right: 4px;
+}
+
+.topcoat-list__item .data {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.topcoat-button--quiet {
+  padding: 0 1.5rem;
+  line-height: 1.75rem;
+}
+
+.pages {
+  font-size: 16px;
+  line-height: 1.75rem;
+  letter-spacing: 1px;
+  color: #454545;
+  text-shadow: 0 1px #fff;
+  padding: 0 1.25rem;
+}
+
+.pages .current {
+  font-weight: 600;
+  margin-left: 15px;
+}
+
+.pages .total {
+  font-weight: 600;
+  margin-right: 15px;
+}

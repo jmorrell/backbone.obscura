@@ -1,0 +1,128 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Obscura Example</title>
+    <link href="bower_components/topcoat/css/topcoat-mobile-light.css" media="all" rel="stylesheet" type="text/css" />
+    <link href="style.css" media="all" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+
+    <script type="text/template" id="list-item">
+      <img src="<%= photo %>" alt="<%= name %>">
+      <div class="data">
+        <h3><%= name %></h3>
+        <span>Age: <strong><%= age %></strong></span>
+        <span>Score: <strong><%= score %></strong></span>
+      </div>
+    </script>
+
+    <script type="text/template" id="pager">
+      <button class="topcoat-button--quiet prev">Prev</button>
+      <span class="current"></span> / <span class="total"></span>
+      <button class="topcoat-button--quiet next">Next</button>
+    </script>
+
+    <div id="container">
+
+      <div class="superset-controls">
+        <h2>Add model to superset at random index</h2>
+        <button class="topcoat-button--cta add-model">Add model</button>
+
+        <br><br><br>
+        <h3>Click on any item to destroy the model</h3>
+      </div>
+
+      <div class="superset">
+        <div class="topcoat-navigation-bar">
+          <div class="topcoat-navigation-bar__item center full">
+            <h1 class="topcoat-navigation-bar__title">Superset Collection</h1>
+          </div>
+        </div>
+        <div class="superset-list"></div>
+      </div>
+
+      <div class="obscura">
+        <div class="topcoat-navigation-bar">
+          <div class="topcoat-navigation-bar__item center full">
+            <h1 class="topcoat-navigation-bar__title">Obscura Collection</h1>
+          </div>
+        </div>
+        <div class="obscura-list"></div>
+        <div class="pager"></div>
+      </div>
+
+      <div class="obscura-controls">
+        <h2>Filter as you type</h2>
+        <input type="search" value="" placeholder="filter" class="topcoat-search-input">
+
+        <h2>Items per page</h2>
+        <form class="per-page">
+          <label class="topcoat-radio-button">
+            <input type="radio" name="topcoat" data-per-page="5" checked>
+            <div class="topcoat-radio-button__checkmark"></div>
+            5
+          </label>
+          <br>
+          <br>
+          <label class="topcoat-radio-button">
+            <input type="radio" name="topcoat" data-per-page="10">
+            <div class="topcoat-radio-button__checkmark"></div>
+            10
+          </label>
+          <br>
+          <br>
+          <label class="topcoat-radio-button">
+            <input type="radio" name="topcoat" data-per-page="20">
+            <div class="topcoat-radio-button__checkmark"></div>
+            20
+          </label>
+        </form>
+
+        <h2>Sort By</h2>
+        <form class="sort-by">
+          <label class="topcoat-radio-button">
+            <input type="radio" name="topcoat" data-key="null" data-dir="asc" checked>
+            <div class="topcoat-radio-button__checkmark"></div>
+            None
+          </label>
+          <br>
+          <br>
+          <label class="topcoat-radio-button">
+            <input type="radio" name="topcoat" data-key="age" data-dir="asc">
+            <div class="topcoat-radio-button__checkmark"></div>
+            Age Ascending
+          </label>
+          <br>
+          <br>
+          <label class="topcoat-radio-button">
+            <input type="radio" name="topcoat" data-key="age" data-dir="desc">
+            <div class="topcoat-radio-button__checkmark"></div>
+            Age Descending
+          </label>
+          <br>
+          <br>
+          <label class="topcoat-radio-button">
+            <input type="radio" name="topcoat" data-key="score" data-dir="asc">
+            <div class="topcoat-radio-button__checkmark"></div>
+            Score Ascending
+          </label>
+          <br>
+          <br>
+          <label class="topcoat-radio-button">
+            <input type="radio" name="topcoat" data-key="score" data-dir="desc">
+            <div class="topcoat-radio-button__checkmark"></div>
+            Score Descending
+          </label>
+        </form>
+      </div>
+    </div>
+
+    <script src="bower_components/lodash/lodash.js"></script>
+    <script src="bower_components/jquery/jquery.js"></script>
+    <script src="bower_components/backbone/backbone.js"></script>
+    <script src="bower_components/marionette/lib/backbone.marionette.js"></script>
+    <script src="bower_components/backbone.obscura/build/backbone.obscura.js"></script>
+    <script src="data.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
