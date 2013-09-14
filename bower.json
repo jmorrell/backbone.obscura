@@ -3,7 +3,7 @@
   "description": "A read-only proxy of a Backbone.Collection that can easily be filtered, sorted, and paginated.",
   "version": "0.1.0",
   "homepage": "https://github.com/jmorrell/backbone.obscura",
-  "main": "",
+  "main": "backbone.obscura.js",
   "license": "MIT",
   "ignore": [
     "test",
@@ -11,7 +11,10 @@
     ".travis.yml",
     "CHANGELOG.md",
     "karma.conf.js",
-    "package.json"
+    "package.json",
+    "images",
+    "templates",
+    "Gruntfile.js"
   ],
   "dependencies": {
     "backbone": "~1.0.0",
