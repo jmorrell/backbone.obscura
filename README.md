@@ -122,6 +122,8 @@ var obscura  = new PaginatedCollection(sorted);
   * <a href="#move-page"><code>proxy<b>.movePage()</b></code></a>
   * <a href="#next-page"><code>proxy<b>.nextPage()</b></code></a>
   * <a href="#prev-page"><code>proxy<b>.prevPage()</b></code></a>
+  * <a href="#first-page"><code>proxy<b>.firstPage()</b></code></a>
+  * <a href="#last-page"><code>proxy<b>.lastPage()</b></code></a>
   * <a href="#remove-pagination"><code>proxy<b>.removePagination()</b></code></a>
 
 #### <a href="#events-section">Events</a>
@@ -381,6 +383,24 @@ Move to the previous page. Equivalent to `paginated.movePage(-1)`.
 
 ```javascript
 proxy.prevPage();
+```
+
+<a name="first-page"></a>
+### paginated.firstPage()
+
+Move to the first page of the collection. Equivalent to `paginated.setPage(0)`.
+
+```javascript
+proxy.firstPage();
+```
+
+<a name="last-page"></a>
+### paginated.lastPage()
+
+Move to the last page of the collection. Equivalent to `paginated.setPage(paginated.getNumPages() - 1)`.
+
+```javascript
+proxy.lastPage();
 ```
 
 <a name="remove-pagination"></a>
