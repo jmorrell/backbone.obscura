@@ -13,7 +13,7 @@ This works particularly well with [Marionette's](https://github.com/marionettejs
 [CollectionView](https://github.com/marionettejs/backbone.marionette/blob/master/docs/marionette.collectionview.md) 
 and [CompositeView](https://github.com/marionettejs/backbone.marionette/blob/master/docs/marionette.compositeview.md).
 
-You can see it working in the [demo](http://jmorrell.github.io/backbone.obscura/example.html).
+#### [Demo](http://jmorrell.github.io/backbone.obscura/example.html)
 
 ```javascript
 var proxy = new Backbone.Obscura(originalCollection);
