@@ -13,6 +13,8 @@ This works particularly well with [Marionette's](https://github.com/marionettejs
 [CollectionView](https://github.com/marionettejs/backbone.marionette/blob/master/docs/marionette.collectionview.md) 
 and [CompositeView](https://github.com/marionettejs/backbone.marionette/blob/master/docs/marionette.compositeview.md).
 
+You can see it working in the [demo](http://jmorrell.github.io/backbone.obscura/example.html).
+
 ```javascript
 var proxy = new Backbone.Obscura(originalCollection);
 
@@ -386,7 +388,7 @@ proxy.prevPage();
 ```
 
 <a name="first-page"></a>
-### paginated.firstPage()
+#### paginated.firstPage()
 
 Move to the first page of the collection. Equivalent to `paginated.setPage(0)`.
 
@@ -395,7 +397,7 @@ proxy.firstPage();
 ```
 
 <a name="last-page"></a>
-### paginated.lastPage()
+#### paginated.lastPage()
 
 Move to the last page of the collection. Equivalent to `paginated.setPage(paginated.getNumPages() - 1)`.
 
