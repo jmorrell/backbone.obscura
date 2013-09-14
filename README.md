@@ -125,7 +125,8 @@ var obscura  = new PaginatedCollection(sorted);
   * <a href="#prev-page"><code>proxy<b>.prevPage()</b></code></a>
   * <a href="#remove-pagination"><code>proxy<b>.removePagination()</b></code></a>
 
-#### <a href="#events">Events</a>
+
+  * <a href="#events"><b>Events</b></a>
 
 
 ## Methods
