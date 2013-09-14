@@ -94,8 +94,43 @@ var sorted   = new SortedCollection(filtered);
 var obscura  = new PaginatedCollection(sorted);
 ```
 
+## API
+
+  * <a href="#ctor"><code><b>Obscura()</b></code></a>
+  * <a href="#superset"><code>proxy<b>.superset()</b></code></a>
+  * <a href="#remove-transforms"><code>proxy<b>.removeTransforms()</b></code></a>
+  * <a href="#destroy"><code>proxy<b>.destroy()</b></code></a>
+
+#### Filter Methods
+  * <a href="#filter-by"><code>proxy<b>.filterBy()</b></code></a>
+  * <a href="#remove-filter"><code>proxy<b>.removeFilter()</b></code></a>
+  * <a href="#reset-filters"><code>proxy<b>.resetFilters()</b></code></a>
+  * <a href="#refilter"><code>proxy<b>.refilter()</b></code></a>
+
+#### Sorting Methods
+  * <a href="#set-sort"><code>proxy<b>.setSort()</b></code></a>
+  * <a href="#remove-sort"><code>proxy<b>.removeSort()</b></code></a>
+  * <a href="#reverse-sort"><code>proxy<b>.reverseSort()</b></code></a>
+  
+#### Pagination Methods
+  * <a href="#set-per-page"><code>proxy<b>.setPerPage()</b></code></a>
+  * <a href="#set-page"><code>proxy<b>.setPage()</b></code></a>
+  * <a href="#get-per-page"><code>proxy<b>.getPerPage()</b></code></a>
+  * <a href="#get-num-pages"><code>proxy<b>.getNumPages()</b></code></a>
+  * <a href="#get-page"><code>proxy<b>.getPage()</b></code></a>
+  * <a href="#has-next-page"><code>proxy<b>.hasNextPage()</b></code></a>
+  * <a href="#has-prev-page"><code>proxy<b>.hasPrevPage()</b></code></a>
+  * <a href="#move-page"><code>proxy<b>.movePage()</b></code></a>
+  * <a href="#next-page"><code>proxy<b>.nextPage()</b></code></a>
+  * <a href="#prev-page"><code>proxy<b>.prevPage()</b></code></a>
+  * <a href="#remove-pagination"><code>proxy<b>.removePagination()</b></code></a>
+
+#### <a href="#events">Events</a>
+
+
 ## Methods
 
+<a name="ctor"></a>
 #### new Backbone.Obscura(collection [, options])
 
 Initialize a new Obscura collection by passing in the original collection.
@@ -109,6 +144,7 @@ You may also optionally pass an options hash. Currently the only supported optio
 var proxy = new Backbone.Obscura(originalCollection, { perPage: 25 });
 ```
 
+<a name="superset"></a>
 #### proxy.superset()
 
 Return a reference to the original collection.
@@ -117,6 +153,7 @@ Return a reference to the original collection.
 proxy.superset();
 ```
 
+<a name="remove-transforms"></a>
 #### proxy.removeTransforms()
 
 Remove all filters, pagination settings, and sorting transforms. Afterwards the collection
@@ -126,6 +163,7 @@ should be identical to the original collection.
 proxy.removeTransforms();
 ```
 
+<a name="destroy"></a>
 #### proxy.destroy()
 
 Remove all ties to the superset and stop updating. Will now be garbage 
@@ -134,6 +172,7 @@ collected when it falls out of scope.
 
 ### Filter methods
 
+<a name="filter-by"></a>
 #### proxy.filterBy([filterName], filter)
 
 Apply a new filter to the set. Takes an optional filter name.
@@ -158,6 +197,7 @@ filtered.filterBy('age', function(model) {
 });
 ```
 
+<a name="remove-filter"></a>
 #### proxy.removeFilter(filterName)
 
 Remove a previously applied filter. Accepts a filter name.
@@ -166,6 +206,7 @@ Remove a previously applied filter. Accepts a filter name.
 proxy.removeFilter('age');
 ```
 
+<a name="reset-filters"></a>
 #### proxy.resetFilters()
 
 Removes all applied filters.
@@ -174,6 +215,7 @@ Removes all applied filters.
 proxy.resetFilters();
 ```
 
+<a name="refilter"></a>
 #### proxy.refilter()
 
 If the collections get out of sync (ex: change events have been suppressed) force
@@ -191,6 +233,7 @@ proxy.refilter(model);
 
 ### Sorting methods
 
+<a name="set-sort"></a>
 #### proxy.setSort(comparator, direction)
 
 `comparator` accepts:
@@ -224,6 +267,8 @@ proxy.setSort(function(model) {
 // Pass nothing as an option to remove all sorting
 proxy.setSort();
 ```
+
+<a name="remove-sort"></a>
 #### proxy.removeSort
 
 Remove all sorting. Equivalent to calling `sorted.setSort()`
@@ -232,6 +277,7 @@ Remove all sorting. Equivalent to calling `sorted.setSort()`
 proxy.removeSort();
 ```
 
+<a name="reverse-sort"></a>
 #### proxy.reverseSort
 
 Reverse the sort. The API is chainable, so this can be called directly
@@ -246,6 +292,7 @@ proxy.setSort('age').reverseSort();
 
 ### Pagination methods
 
+<a name="set-per-page"></a>
 #### proxy.setPerPage(perPage)
 
 Change the number of models displayed per page. This will reset the current page to 0.
@@ -254,6 +301,7 @@ Change the number of models displayed per page. This will reset the current page
 proxy.setPerPage(50);
 ```
 
+<a name="set-page"></a>
 #### proxy.setPage(page)
 
 Change the page. If the page is less than 0, it will be set to 0. If it is longer than
@@ -263,6 +311,7 @@ the number of pages, the last page will be selected.
 proxy.setPage(5);
 ```
 
+<a name="get-per-page"></a>
 #### proxy.getPerPage()
 
 Return the current setting for number of models per page.
@@ -271,6 +320,7 @@ Return the current setting for number of models per page.
 proxy.getPerPage();
 ```
 
+<a name="get-num-pages"></a>
 #### proxy.getNumPages()
 
 Return the current number of pages.
@@ -279,6 +329,7 @@ Return the current number of pages.
 proxy.getNumPages();
 ```
 
+<a name="get-page"></a>
 #### proxy.getPage()
 
 Return the current page. E.G. if this returns 0, you're on the first page.
@@ -287,6 +338,7 @@ Return the current page. E.G. if this returns 0, you're on the first page.
 proxy.getPage();
 ```
 
+<a name="has-next-page"></a>
 #### proxy.hasNextPage()
 
 Returns true if this is not the last page.
@@ -295,6 +347,7 @@ Returns true if this is not the last page.
 proxy.hasNextPage();
 ```
 
+<a name="has-prev-page"></a>
 #### proxy.hasPrevPage()
 
 Returns true if this is not the first page.
@@ -303,6 +356,7 @@ Returns true if this is not the first page.
 proxy.hasPrevPage();
 ```
 
+<a name="move-page"></a>
 #### proxy.movePage(delta)
 
 Move `delta` pages forwards or backwards (if `delta` is negative).
@@ -312,6 +366,7 @@ Move `delta` pages forwards or backwards (if `delta` is negative).
 proxy.movePage(-2);
 ```
 
+<a name="next-page"></a>
 #### proxy.nextPage()
 
 Move to the next page. Equivalent to `paginated.movePage(1)`.
@@ -320,6 +375,7 @@ Move to the next page. Equivalent to `paginated.movePage(1)`.
 proxy.nextPage();
 ```
 
+<a name="prev-page"></a>
 #### proxy.prevPage()
 
 Move to the previous page. Equivalent to `paginated.movePage(-1)`.
@@ -328,6 +384,7 @@ Move to the previous page. Equivalent to `paginated.movePage(-1)`.
 proxy.prevPage();
 ```
 
+<a name="remove-pagination"></a>
 #### proxy.removePagination()
 
 Get rid of any paginated settings.
@@ -336,6 +393,7 @@ Get rid of any paginated settings.
 proxy.removePagination();
 ```
 
+<a name="events"></a>
 ## Events
 
 `add`, `remove`, `change`, `reset` should fire as you expect.
@@ -357,23 +415,6 @@ proxy.removePagination();
 
 `obscura:destroy` - Fired when the proxy is destroyed
 
-## Alternative Libraries
-
-There are several libraries that offer similar functionality, but none that offered the combination of features that I wanted.
-
-* JavaScript, not CoffeeScript
-* No need to define filters or sorting on initialization
-* Ability to use arbitrary functions for filters or sorting
-* Transparency, if no transforms are defined, the proxy should be the same as the original collection
-* Ability to add and remove multiple filters
-* Easy to use with Browserify, but also easy to throw into an AMD project
-
-If this library doesn't meet your needs, maybe one of the following will:
-
-* [Backbone.Projections](https://github.com/andreypopp/backbone.projections)
-* [backbone.collectionsubset](https://github.com/anthonyshort/backbone.collectionsubset)
-* [Backbone.VirtualCollection](https://github.com/p3drosola/Backbone.VirtualCollection)
-* [Backbone.Subset](https://github.com/masylum/Backbone.Subset)
 
 ## Installation
 
@@ -438,6 +479,24 @@ To run the tests in Firefox, just once, as CI would:
 ```
 npm test
 ```
+
+## Alternative Libraries
+
+There are several libraries that offer similar functionality, but none that offered the combination of features that I wanted.
+
+* JavaScript, not CoffeeScript
+* No need to define filters or sorting on initialization
+* Ability to use arbitrary functions for filters or sorting
+* Transparency, if no transforms are defined, the proxy should be the same as the original collection
+* Ability to add and remove multiple filters
+* Easy to use with Browserify, but also easy to throw into an AMD project
+
+If this library doesn't meet your needs, maybe one of the following will:
+
+* [Backbone.Projections](https://github.com/andreypopp/backbone.projections)
+* [backbone.collectionsubset](https://github.com/anthonyshort/backbone.collectionsubset)
+* [Backbone.VirtualCollection](https://github.com/p3drosola/Backbone.VirtualCollection)
+* [Backbone.Subset](https://github.com/masylum/Backbone.Subset)
 
 ## License
 
