@@ -1,4 +1,3 @@
-
 # Backbone.Obscura
 
 Backbone.Obscura is a read-only proxy of a Backbone.Collection that can easily be 
@@ -125,8 +124,7 @@ var obscura  = new PaginatedCollection(sorted);
   * <a href="#prev-page"><code>proxy<b>.prevPage()</b></code></a>
   * <a href="#remove-pagination"><code>proxy<b>.removePagination()</b></code></a>
 
-
-  * <a href="#events"><b>Events</b></a>
+#### <a href="#events-section">Events</a>
 
 
 ## Methods
@@ -394,7 +392,7 @@ Get rid of any paginated settings.
 proxy.removePagination();
 ```
 
-<a name="events"></a>
+<a name="events-section"></a>
 ## Events
 
 `add`, `remove`, `change`, `reset` should fire as you expect.
