@@ -432,6 +432,8 @@ proxy.removePagination();
 
 `paginated:change:page` - Fired whenever the page is changed.
 
+`paginated:change:numPages` - Fired whenever the number of pages changes.
+
 `obscura:destroy` - Fired when the proxy is destroyed
 
 
