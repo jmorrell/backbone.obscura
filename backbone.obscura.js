@@ -1010,6 +1010,8 @@ function reverseSortedIndex(array, obj, iterator, context) {
 module.exports = reverseSortedIndex;
 
 },{"underscore":false}],12:[function(require,module,exports){
+var _ = require('underscore');
+
 function proxyEvents(from, eventNames) {
   _.each(eventNames, function(eventName) {
     this.listenTo(from, eventName, function() {
@@ -1022,7 +1024,7 @@ function proxyEvents(from, eventNames) {
 
 module.exports = proxyEvents;
 
-},{}]},{},[])
+},{"underscore":false}]},{},[])
 ;
 return require('obscura');
 
