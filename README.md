@@ -516,6 +516,7 @@ There are several libraries that offer similar functionality, but none that offe
 
 If this library doesn't meet your needs, maybe one of the following will:
 
+* [Backbone.CollectionFilter](https://github.com/rhysbrettbowen/Backbone.CollectionFilter)
 * [Backbone.Projections](https://github.com/andreypopp/backbone.projections)
 * [backbone.collectionsubset](https://github.com/anthonyshort/backbone.collectionsubset)
 * [Backbone.VirtualCollection](https://github.com/p3drosola/Backbone.VirtualCollection)
