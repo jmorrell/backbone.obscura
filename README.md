@@ -107,6 +107,7 @@ var obscura  = new PaginatedCollection(sorted);
   * <a href="#remove-filter"><code>proxy<b>.removeFilter()</b></code></a>
   * <a href="#reset-filters"><code>proxy<b>.resetFilters()</b></code></a>
   * <a href="#refilter"><code>proxy<b>.refilter()</b></code></a>
+  * <a href="#filterNames"><code>proxy<b>.filterNames()</b></code></a>
 
 #### Sorting Methods
   * <a href="#set-sort"><code>proxy<b>.setSort()</b></code></a>
@@ -232,6 +233,14 @@ Can also be forced to run on one model in particular.
 
 ```javascript
 proxy.refilter(model);
+```
+
+#### proxy.filterNames()
+
+Retrieves the names of filters
+
+```javascript
+proxy.filterNames();
 ```
 
 ### Sorting methods
