@@ -108,6 +108,7 @@ var obscura  = new PaginatedCollection(sorted);
   * <a href="#reset-filters"><code>proxy<b>.resetFilters()</b></code></a>
   * <a href="#refilter"><code>proxy<b>.refilter()</b></code></a>
   * <a href="#filterNames"><code>proxy<b>.filterNames()</b></code></a>
+  * <a href="#containsFilter"><code>proxy<b>.containsFilter()</b></code></a>
 
 #### Sorting Methods
   * <a href="#set-sort"><code>proxy<b>.setSort()</b></code></a>
@@ -237,10 +238,18 @@ proxy.refilter(model);
 
 #### proxy.filterNames()
 
-Retrieves the names of filters
+Retrieves the names of filters.
 
 ```javascript
 proxy.filterNames();
+```
+
+#### proxy.containsFilter()
+
+Checks if a filter is set.
+
+```javascript
+proxy.containsFilter('age');
 ```
 
 ### Sorting methods

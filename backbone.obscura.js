@@ -61,7 +61,8 @@ var methods = {
 
 // Methods on `this._filtered` we will expose to the outside world
 var filteredMethods = [
-  'filterBy', 'removeFilter', 'resetFilters', 'refilter', 'filterNames'
+  'filterBy', 'removeFilter', 'resetFilters', 'refilter', 'filterNames',
+  'containsFilter'
 ];
 
 // Events fired from `this._filtered` that we will forward
@@ -404,6 +405,10 @@ var methods = {
 
   filterNames: function() {
     return  _.keys(this._filters);
+  },
+
+  containsFilter: function(name) {
+    return _.contains(this.filterNames(), name);
   }
 
 };

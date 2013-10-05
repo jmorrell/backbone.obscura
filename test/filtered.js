@@ -387,6 +387,28 @@ describe('filtered collection', function() {
 
   });
 
+  describe("containsFilter", function() {
+
+    it("returns true if a filter is found", function() {
+      filtered.filterBy("a", function(model) {
+        return true;
+      });
+
+      assert(filtered.containsFilter("a"));
+
+    });
+
+    it("returns false if a filter is not found", function() {
+      filtered.filterBy("a", function(model) {
+        return true;
+      });
+
+      assert(filtered.containsFilter("b") === false);
+
+    });
+
+  });
+
   describe('filtering without a filter name', function() {
 
     it('should accept a filter with no name', function() {
