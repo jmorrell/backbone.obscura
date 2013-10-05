@@ -370,6 +370,23 @@ describe('filtered collection', function() {
 
   });
 
+  describe("filterNames", function() {
+
+    it("filterNames returns the filter names", function() {
+      filtered.filterBy("a", function(model) {
+        return true;
+      });
+
+      filtered.filterBy("b", function(model) {
+        return true;
+      });
+
+      assert(_.isEqual(["a", "b"], filtered.filterNames()));
+
+    });
+
+  });
+
   describe('filtering without a filter name', function() {
 
     it('should accept a filter with no name', function() {

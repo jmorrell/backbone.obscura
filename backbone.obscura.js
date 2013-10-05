@@ -61,7 +61,7 @@ var methods = {
 
 // Methods on `this._filtered` we will expose to the outside world
 var filteredMethods = [
-  'filterBy', 'removeFilter', 'resetFilters', 'refilter'
+  'filterBy', 'removeFilter', 'resetFilters', 'refilter', 'filterNames'
 ];
 
 // Events fired from `this._filtered` that we will forward
@@ -400,6 +400,10 @@ var methods = {
     this.length = 0;
 
     this.trigger('filtered:destroy');
+  },
+
+  filterNames: function() {
+    return  _.keys(this._filters);
   }
 
 };
