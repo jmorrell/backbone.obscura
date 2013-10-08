@@ -370,6 +370,45 @@ describe('filtered collection', function() {
 
   });
 
+  describe("filterNames", function() {
+
+    it("filterNames returns the filter names", function() {
+      filtered.filterBy("a", function(model) {
+        return true;
+      });
+
+      filtered.filterBy("b", function(model) {
+        return true;
+      });
+
+      assert(_.isEqual(["a", "b"], filtered.filterNames()));
+
+    });
+
+  });
+
+  describe("containsFilter", function() {
+
+    it("returns true if a filter is found", function() {
+      filtered.filterBy("a", function(model) {
+        return true;
+      });
+
+      assert(filtered.containsFilter("a"));
+
+    });
+
+    it("returns false if a filter is not found", function() {
+      filtered.filterBy("a", function(model) {
+        return true;
+      });
+
+      assert(filtered.containsFilter("b") === false);
+
+    });
+
+  });
+
   describe('filtering without a filter name', function() {
 
     it('should accept a filter with no name', function() {
