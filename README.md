@@ -107,8 +107,8 @@ var obscura  = new PaginatedCollection(sorted);
   * <a href="#remove-filter"><code>proxy<b>.removeFilter()</b></code></a>
   * <a href="#reset-filters"><code>proxy<b>.resetFilters()</b></code></a>
   * <a href="#refilter"><code>proxy<b>.refilter()</b></code></a>
-  * <a href="#filterNames"><code>proxy<b>.filterNames()</b></code></a>
-  * <a href="#containsFilter"><code>proxy<b>.containsFilter()</b></code></a>
+  * <a href="#get-filters"><code>proxy<b>.getFilters()</b></code></a>
+  * <a href="#has-filter"><code>proxy<b>.hasFilter()</b></code></a>
 
 #### Sorting Methods
   * <a href="#set-sort"><code>proxy<b>.setSort()</b></code></a>
@@ -236,20 +236,24 @@ Can also be forced to run on one model in particular.
 proxy.refilter(model);
 ```
 
-#### proxy.filterNames()
+<a name="get-filters"></a>
+#### filtered.getFilters()
 
-Retrieves the names of filters.
+Returns a list of the names of applied filters.
+
+*Note:* If added a filter with no name, it will show up here as `__default`.
 
 ```javascript
-proxy.filterNames();
+filtered.getFilters();
 ```
 
-#### proxy.containsFilter()
+<a name="has-filter"></a>
+#### filtered.hasFilter()
 
-Checks if a filter is set.
+Given a string, return whether or not that filter is currently applied.
 
 ```javascript
-proxy.containsFilter('age');
+filtered.hasFilter('name');
 ```
 
 ### Sorting methods

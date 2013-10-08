@@ -48,7 +48,8 @@ var methods = {
 
 // Methods on `this._filtered` we will expose to the outside world
 var filteredMethods = [
-  'filterBy', 'removeFilter', 'resetFilters', 'refilter'
+  'filterBy', 'removeFilter', 'resetFilters', 'refilter', 'hasFilter',
+  'getFilters'
 ];
 
 // Events fired from `this._filtered` that we will forward

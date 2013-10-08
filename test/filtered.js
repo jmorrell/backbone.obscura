@@ -370,7 +370,7 @@ describe('filtered collection', function() {
 
   });
 
-  describe("filterNames", function() {
+  describe("getFilters", function() {
 
     it("filterNames returns the filter names", function() {
       filtered.filterBy("a", function(model) {
@@ -381,30 +381,25 @@ describe('filtered collection', function() {
         return true;
       });
 
-      assert(_.isEqual(["a", "b"], filtered.filterNames()));
-
+      assert(_.isEqual([ "a", "b" ], filtered.getFilters()));
     });
 
   });
 
-  describe("containsFilter", function() {
+  describe("hasFilter", function() {
 
-    it("returns true if a filter is found", function() {
+    beforeEach(function() {
       filtered.filterBy("a", function(model) {
         return true;
       });
+    });
 
-      assert(filtered.containsFilter("a"));
-
+    it("returns true if a filter is found", function() {
+      assert(filtered.hasFilter("a"));
     });
 
     it("returns false if a filter is not found", function() {
-      filtered.filterBy("a", function(model) {
-        return true;
-      });
-
-      assert(filtered.containsFilter("b") === false);
-
+      assert(!filtered.hasFilter("b"));
     });
 
   });

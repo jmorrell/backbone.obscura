@@ -61,8 +61,8 @@ var methods = {
 
 // Methods on `this._filtered` we will expose to the outside world
 var filteredMethods = [
-  'filterBy', 'removeFilter', 'resetFilters', 'refilter', 'filterNames',
-  'containsFilter'
+  'filterBy', 'removeFilter', 'resetFilters', 'refilter', 'hasFilter',
+  'getFilters'
 ];
 
 // Events fired from `this._filtered` that we will forward
@@ -394,6 +394,14 @@ var methods = {
     return this;
   },
 
+  getFilters: function() {
+    return  _.keys(this._filters);
+  },
+
+  hasFilter: function(name) {
+    return _.contains(this.getFilters(), name);
+  },
+
   destroy: function() {
     this.stopListening();
     this._collection.reset([]);
@@ -401,14 +409,6 @@ var methods = {
     this.length = 0;
 
     this.trigger('filtered:destroy');
-  },
-
-  filterNames: function() {
-    return  _.keys(this._filters);
-  },
-
-  containsFilter: function(name) {
-    return _.contains(this.filterNames(), name);
   }
 
 };
