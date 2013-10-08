@@ -166,7 +166,7 @@ should be identical to the original collection.
 
 ```
 proxy.removeTransforms();
-```
+
 
 <a name="destroy"></a>
 #### proxy.destroy()
@@ -191,6 +191,13 @@ Or the you can pass a filter function instead of a value.
 ```javascript
 filtered.filterBy('a > 2', { a: function(val) { 
   return val > 2;
+}});
+```
+
+Or say you wanted to narrow a value down to one of a couple of options:
+```javascript
+filtered.filterBy('quality', { a: function(val) { 
+  return _.contains([ 'better', 'best' ], val);
 }});
 ```
 
