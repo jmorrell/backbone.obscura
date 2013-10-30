@@ -39,6 +39,17 @@ describe('Backbone.Obscura', function() {
       assert(called);
     });
 
+    it('should have a .models parameter', function() {
+      assert(_.isEqual(superset.models, proxy.models));
+
+      var newModel = new Backbone.Model({ n: 9001 });
+      superset.add(newModel, { at: 300 });
+      assert(_.isEqual(superset.models, proxy.models));
+
+      superset.reset([]);
+      assert(_.isEqual(superset.models, proxy.models));
+    });
+
   });
 
   describe('paginated, sort, and filter', function() {

@@ -10,9 +10,7 @@
     }
 }(this, function(_, Backbone) {
 var require=function(name){return {"backbone":Backbone,"underscore":_}[name];};
-require=(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({"obscura":[function(require,module,exports){
-module.exports=require('HusaU0');
-},{}],"HusaU0":[function(require,module,exports){
+require=(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({"HusaU0":[function(require,module,exports){
 
 var _ = require('underscore');
 var Backbone = require('backbone');
@@ -122,7 +120,9 @@ Obscura.PaginatedCollection = PaginatedCollection;
 module.exports = Obscura;
 
 
-},{"./src/proxy-events.js":12,"backbone":false,"backbone-collection-proxy":3,"backbone-filtered-collection":4,"backbone-paginated-collection":7,"backbone-sorted-collection":9,"underscore":false}],3:[function(require,module,exports){
+},{"./src/proxy-events.js":9,"backbone":false,"backbone-collection-proxy":3,"backbone-filtered-collection":4,"backbone-paginated-collection":6,"backbone-sorted-collection":7,"underscore":false}],"obscura":[function(require,module,exports){
+module.exports=require('HusaU0');
+},{}],3:[function(require,module,exports){
 
 var _ = require('underscore');
 var Backbone = require('backbone');
@@ -149,6 +149,12 @@ function proxyCollection(from, target) {
     var args = _.toArray(arguments);
     var isChangeEvent = eventName === 'change' ||
                         eventName.slice(0, 7) === 'change:';
+
+    // In the case of a `reset` event, the Collection.models reference
+    // is updated to a new array, so we need to update our reference.
+    if (eventName === 'reset') {
+      target.models = from.models;
+    }
 
     if (_.contains(eventWhiteList, eventName)) {
       if (_.contains(['add', 'remove', 'destory'], eventName)) {
@@ -180,6 +186,7 @@ function proxyCollection(from, target) {
 
   target.listenTo(from, 'all', updateLength);
   target.listenTo(from, 'all', pipeEvents);
+  target.models = from.models;
 
   updateLength();
   return target;
@@ -421,61 +428,7 @@ _.extend(Filtered.prototype, methods, Backbone.Events);
 module.exports = Filtered;
 
 
-},{"./src/create-filter.js":6,"backbone":false,"backbone-collection-proxy":5,"underscore":false}],5:[function(require,module,exports){
-
-var _ = require('underscore');
-var Backbone = require('backbone');
-
-// Methods in the collection prototype that we won't expose
-var blacklistedMethods = [
-  "_onModelEvent", "_prepareModel", "_removeReference", "_reset", "add",
-  "initialize", "sync", "remove", "reset", "set", "push", "pop", "unshift",
-  "shift", "sort", "parse", "fetch", "create", "model", "off", "on",
-  "listenTo", "listenToOnce", "bind", "trigger", "once", "stopListening"
-];
-
-function proxyCollection(from, target) {
-
-  function updateLength() {
-    target.length = from.length;
-  }
-
-  function pipeEvents() {
-    var args = _.toArray(arguments);
-
-    // replace any references to `from` with `this`
-    for (var i = 1; i < args.length; i++) {
-      if (args[i] && args[i].length && args[i].length === from.length) {
-        args[i] = this;
-      }
-    }
-
-    this.trigger.apply(this, args);
-  }
-
-  var methods = {};
-
-  _.each(_.functions(Backbone.Collection.prototype), function(method) {
-    if (!_.contains(blacklistedMethods, method)) {
-      methods[method] = function() {
-        return from[method].apply(from, arguments);
-      };
-    }
-  });
-
-  _.extend(target, Backbone.Events, methods);
-
-  target.listenTo(from, 'all', updateLength);
-  target.listenTo(from, 'all', pipeEvents);
-
-  updateLength();
-  return target;
-}
-
-module.exports = proxyCollection;
-
-
-},{"backbone":false,"underscore":false}],6:[function(require,module,exports){
+},{"./src/create-filter.js":5,"backbone":false,"backbone-collection-proxy":3,"underscore":false}],5:[function(require,module,exports){
 
 
 // Converts a key and value into a function that accepts a model
@@ -558,7 +511,7 @@ function createFilter(filter, keys) {
 module.exports = createFilter;
 
 
-},{}],7:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 
 var _ = require('underscore');
 var Backbone = require('backbone');
@@ -772,9 +725,7 @@ _.extend(Paginated.prototype, methods, Backbone.Events);
 module.exports =  Paginated;
 
 
-},{"backbone":false,"backbone-collection-proxy":8,"underscore":false}],8:[function(require,module,exports){
-module.exports=require(5)
-},{"backbone":false,"underscore":false}],9:[function(require,module,exports){
+},{"backbone":false,"backbone-collection-proxy":3,"underscore":false}],7:[function(require,module,exports){
 
 var _ = require('underscore');
 var Backbone =require('backbone');
@@ -889,9 +840,7 @@ _.extend(Sorted.prototype, methods, Backbone.Events);
 module.exports = Sorted;
 
 
-},{"./src/reverse-sorted-index.js":11,"backbone":false,"backbone-collection-proxy":10,"underscore":false}],10:[function(require,module,exports){
-module.exports=require(5)
-},{"backbone":false,"underscore":false}],11:[function(require,module,exports){
+},{"./src/reverse-sorted-index.js":8,"backbone":false,"backbone-collection-proxy":3,"underscore":false}],8:[function(require,module,exports){
 
 var _ = require('underscore');
 
@@ -918,7 +867,7 @@ function reverseSortedIndex(array, obj, iterator, context) {
 
 module.exports = reverseSortedIndex;
 
-},{"underscore":false}],12:[function(require,module,exports){
+},{"underscore":false}],9:[function(require,module,exports){
 var _ = require('underscore');
 
 function proxyEvents(from, eventNames) {
