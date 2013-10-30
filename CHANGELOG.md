@@ -1,3 +1,7 @@
+v0.1.3
+
+* Updated build with latest backbone-collection-proxy.
+
 v0.1.2
 
 * Updated to be compatible with Backbone v1.1.0

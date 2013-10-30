@@ -1,7 +1,7 @@
 {
   "name": "backbone.obscura",
   "description": "A read-only proxy of a Backbone.Collection that can easily be filtered, sorted, and paginated.",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "homepage": "https://github.com/jmorrell/backbone.obscura",
   "main": "backbone.obscura.js",
   "license": "MIT",
