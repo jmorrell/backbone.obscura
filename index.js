@@ -77,6 +77,14 @@ var paginatedEvents = [
   'paginated:change:perPage', 'paginated:change:page', 'paginated:change:numPages'
 ];
 
+// Extend obscura with each of the above methods, passing the call to the underlying
+// collection.
+//
+// The return value is checked because some of the methods return `this` to allow
+// chaining, and returning the internal collection would break the abstraction. In
+// the cases where it would return the internal collection, we can return a reference
+// to the Obscura proxy, which gives it the expected behavior.
+
 _.each(filteredMethods, function(method) {
   methods[method] = function() {
     var result = FilteredCollection.prototype[method].apply(this._filtered, arguments);
