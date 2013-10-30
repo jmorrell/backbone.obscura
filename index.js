@@ -108,6 +108,7 @@ _.each(sortedMethods, function(method) {
 
 _.extend(Obscura.prototype, methods, Backbone.Events);
 
+// Expose the other proxy types so that the user can use them on their own if they want
 Obscura.FilteredCollection = FilteredCollection;
 Obscura.SortedCollection = SortedCollection;
 Obscura.PaginatedCollection = PaginatedCollection;
