@@ -166,6 +166,7 @@ should be identical to the original collection.
 
 ```
 proxy.removeTransforms();
+```
 
 
 <a name="destroy"></a>
@@ -174,6 +175,9 @@ proxy.removeTransforms();
 Remove all ties to the superset and stop updating. Will now be garbage 
 collected when it falls out of scope.
 
+```
+proxy.destroy();
+```
 
 ### Filter methods
 
