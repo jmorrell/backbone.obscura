@@ -1,3 +1,7 @@
+v0.1.4
+
+* Recalculate pagination on `sort`
+
 v0.1.3
 
 * Updated build with latest backbone-collection-proxy.
