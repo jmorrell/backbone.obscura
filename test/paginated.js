@@ -25,6 +25,22 @@ describe('PaginatedCollection', function() {
       assert(!paginated.hasPrevPage());
     });
 
+    it('should update when the original collection is sorted', function() {
+      var newData = _.map(_.range(100, 0, -1), function(i) { return { n: i }; });
+
+      // Reset the superset
+      superset.reset(newData);
+
+      // The paginated collection should hold the new data
+      assert(_.isEqual(paginated.toJSON(), newData));
+
+      // Let's reverse the sort
+      superset.comparator = 'n';
+      superset.sort();
+
+      assert(_.isEqual(paginated.pluck('n'), _.range(1, 101)));
+    });
+
   });
 
   describe('empty superset with perPage', function() {
@@ -266,6 +282,23 @@ describe('PaginatedCollection', function() {
       assert(paginated.getPage() === 0);
       assert(paginated.getNumPages() === 1);
       assert(paginated.length === superset.length);
+    });
+
+    it('should update when the original collection is sorted', function() {
+      var newData = _.map(_.range(100, 0, -1), function(i) { return { n: i }; });
+
+      // Reset the superset
+      superset.reset(newData);
+
+      // The paginated collection should have models 100 - 86
+      assert(_.isEqual(paginated.pluck('n'), _.range(100, 85, -1)));
+
+      // Let's reverse the sort
+      superset.comparator = 'n';
+      superset.sort();
+
+      // The paginated collection should have models 1 - 15
+      assert(_.isEqual(paginated.pluck('n'), _.range(1, 16)));
     });
 
   });

@@ -1184,6 +1184,46 @@ describe('filtered collection', function() {
 
   });
 
+  describe('sorting the superset', function() {
+
+    it('with no filter', function() {
+      var newData = _.map(_.range(100, 0, -1), function(i) { return { n: i }; });
+
+      // Reset the superset
+      superset.reset(newData);
+
+      // The filtered collection should hold the new data
+      assert(_.isEqual(filtered.toJSON(), newData));
+
+      // Let's reverse the sort
+      superset.comparator = 'n';
+      superset.sort();
+
+      assert(_.isEqual(filtered.pluck('n'), _.range(1, 101)));
+    });
+
+    it('with a filter', function() {
+      filtered.filterBy('isEven', function(model) {
+        return model.get('n') % 2 === 0;
+      });
+
+      var newData = _.map(_.range(100, 0, -1), function(i) { return { n: i }; });
+
+      // Reset the superset
+      superset.reset(newData);
+
+      // The paginated collection should hold the new data
+      assert(_.isEqual(filtered.pluck('n'), _.range(100, 0, -2)));
+
+      // Let's reverse the sort
+      superset.comparator = 'n';
+      superset.sort();
+
+      assert(_.isEqual(filtered.pluck('n'), _.range(2, 101, 2)));
+    });
+
+  });
+
 });
 
 
