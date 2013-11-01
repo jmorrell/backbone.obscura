@@ -90,6 +90,14 @@ var paginatedEvents = [
   'paginated:change:perPage', 'paginated:change:page', 'paginated:change:numPages'
 ];
 
+// Extend obscura with each of the above methods, passing the call to the underlying
+// collection.
+//
+// The return value is checked because some of the methods return `this` to allow
+// chaining, and returning the internal collection would break the abstraction. In
+// the cases where it would return the internal collection, we can return a reference
+// to the Obscura proxy, which gives it the expected behavior.
+
 _.each(filteredMethods, function(method) {
   methods[method] = function() {
     var result = FilteredCollection.prototype[method].apply(this._filtered, arguments);
@@ -113,6 +121,7 @@ _.each(sortedMethods, function(method) {
 
 _.extend(Obscura.prototype, methods, Backbone.Events);
 
+// Expose the other proxy types so that the user can use them on their own if they want
 Obscura.FilteredCollection = FilteredCollection;
 Obscura.SortedCollection = SortedCollection;
 Obscura.PaginatedCollection = PaginatedCollection;
@@ -341,7 +350,7 @@ function Filtered(superset) {
   // Set up the filter data structures
   this.resetFilters();
 
-  this.listenTo(this._superset, 'reset', execFilter);
+  this.listenTo(this._superset, 'reset sort', execFilter);
   this.listenTo(this._superset, 'add change', onAddChange);
   this.listenTo(this._superset, 'remove', onModelRemove);
   this.listenTo(this._superset, 'all', onAll);
@@ -617,7 +626,7 @@ function Paginated(superset, options) {
   proxyCollection(this._collection, this);
 
   this.listenTo(this._superset, 'add remove', onAddRemove);
-  this.listenTo(this._superset, 'reset', recalculatePagination);
+  this.listenTo(this._superset, 'reset sort', recalculatePagination);
 }
 
 var methods = {
