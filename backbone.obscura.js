@@ -215,9 +215,7 @@ var createFilter = require('./src/create-filter.js');
 // of the FilteredCollection object, but are not public functions.
 
 function invalidateCache() {
-  this._collection.each(function(model) {
-    this._filterResultCache[model.cid] = {};
-  }, this);
+  this._filterResultCache = {};
 }
 
 function invalidateCacheForFilter(filterName) {
@@ -386,7 +384,6 @@ var methods = {
 
   resetFilters: function() {
     this._filters = {};
-    this._filterResultCache = {};
     invalidateCache.call(this);
 
     this.trigger('filtered:reset');
