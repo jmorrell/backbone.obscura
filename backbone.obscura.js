@@ -435,7 +435,7 @@ module.exports = Filtered;
 
 
 },{"./src/create-filter.js":5,"backbone":false,"backbone-collection-proxy":3,"underscore":false}],5:[function(require,module,exports){
-
+var _ = require('underscore');
 
 // Converts a key and value into a function that accepts a model
 // and returns a boolean.
@@ -517,7 +517,7 @@ function createFilter(filter, keys) {
 module.exports = createFilter;
 
 
-},{}],6:[function(require,module,exports){
+},{"underscore":false}],6:[function(require,module,exports){
 
 var _ = require('underscore');
 var Backbone = require('backbone');
@@ -889,7 +889,6 @@ function proxyEvents(from, eventNames) {
 module.exports = proxyEvents;
 
 },{"underscore":false}]},{},[])
-;
 return require('obscura');
 
 }));
