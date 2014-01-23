@@ -147,6 +147,29 @@ describe('Backbone.Obscura', function() {
       assert(proxy.first() === newModel);
     });
 
+    it('filteredLength returns the filtered length when paginated', function() {
+      proxy
+        .setPerPage(50)
+        .setSort('n', 'desc')
+        .filterBy('only even', function(model) {
+          return model.get('n') % 2 === 0;
+        });
+
+      // We are filtering out half, so there should be 250 items in the filtered set
+      assert(proxy.getFilteredLength() === 250);
+
+      proxy
+        .setSort('n', 'asc')
+        .setPerPage(10)
+        .removeFilter('only even')
+        .filterBy('only odd', function(model) {
+          return model.get('n') % 2 === 1;
+        });
+
+      // We are filtering out half, so there should be 250 items in the filtered set
+      assert(proxy.getFilteredLength() === 250);
+    });
+
   });
 
   describe("destroying the proxy", function() {

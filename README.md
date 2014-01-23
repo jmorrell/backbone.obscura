@@ -109,6 +109,7 @@ var obscura  = new PaginatedCollection(sorted);
   * <a href="#refilter"><code>proxy<b>.refilter()</b></code></a>
   * <a href="#get-filters"><code>proxy<b>.getFilters()</b></code></a>
   * <a href="#has-filter"><code>proxy<b>.hasFilter()</b></code></a>
+  * <a href="#get-filtered-length"><code>proxy<b>.getFilteredLength</b></code></a>
 
 #### Sorting Methods
   * <a href="#set-sort"><code>proxy<b>.setSort()</b></code></a>
@@ -265,6 +266,16 @@ Given a string, return whether or not that filter is currently applied.
 
 ```javascript
 filtered.hasFilter('name');
+```
+
+<a name="get-filtered-length"></a>
+#### filtered.getFilteredLength()
+
+Return the length of the filtered set. This is useful when you have also paginated
+the collection and want to know how many items are in the unpaginated set.
+
+```javascript
+filtered.getFilteredLength();
 ```
 
 ### Sorting methods

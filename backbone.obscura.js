@@ -40,6 +40,10 @@ var methods = {
     return this._superset;
   },
 
+  getFilteredLength: function() {
+    return this._filtered.length;
+  },
+
   removeTransforms: function() {
     this._filtered.resetFilters();
     this._sorted.removeSort();
