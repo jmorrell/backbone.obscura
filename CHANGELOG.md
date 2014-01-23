@@ -1,3 +1,7 @@
+v0.1.6
+
+* Added `getFilteredLength` method
+
 v0.1.5
 
 * Update dependency version requirements
