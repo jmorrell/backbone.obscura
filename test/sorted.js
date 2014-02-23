@@ -315,6 +315,48 @@ describe('sorted collection', function() {
       assert(firstModel === sorted.last());
     });
 
+    it('should not remove and add it back when the location doesnt change', function() {
+      sorted.removeSort();
+
+      var added = false;
+      var removed = false;
+
+      sorted.on('remove', function(eventName) {
+        removed = true;
+      });
+
+      sorted.on('add', function(eventName) {
+        added = true;
+      });
+
+      var firstModel = sorted.first();
+
+      firstModel.set({ b: 100 });
+
+      assert(added === false);
+      assert(removed === false);
+    });
+
+    it('should not remove and add it back when the location doesnt change', function() {
+      var added = false;
+      var removed = false;
+
+      sorted.on('remove', function(eventName) {
+        removed = true;
+      });
+
+      sorted.on('add', function(eventName) {
+        added = true;
+      });
+
+      var firstModel = sorted.first();
+
+      firstModel.set({ foo: 100 });
+
+      assert(added === false);
+      assert(removed === false);
+    });
+
   });
 
   describe('removing a model in the superset', function() {
