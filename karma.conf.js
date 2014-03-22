@@ -18,7 +18,7 @@ module.exports = function(config) {
     // use dots reporter, as travis terminal does not support escaping sequences
     // possible values: 'dots', 'progress', 'junit', 'teamcity'
     // CLI --reporters progress
-    reporters: ['dots', 'osx'],
+    reporters: ['dots'],
 
     // web server port
     // CLI --port 9876
@@ -66,9 +66,7 @@ module.exports = function(config) {
 
     plugins: [
       'karma-mocha',
-      'karma-chrome-launcher',
-      'karma-firefox-launcher',
-      'karma-osx-reporter'
+      'karma-firefox-launcher'
     ]
 
   });
