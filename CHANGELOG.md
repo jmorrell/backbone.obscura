@@ -1,3 +1,7 @@
+v0.1.7
+
+* Updated build because of dependency updates
+
 v0.1.6
 
 * Added `getFilteredLength` method
