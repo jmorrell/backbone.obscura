@@ -1,15 +1,20 @@
 (function (root, factory) {
   if (typeof exports === 'object') {
     module.exports = factory(require('underscore'), require('backbone'));
-  } else if (typeof define === 'function' && define.amd) {
+  }
+  else if (typeof define === 'function' && define.amd) {
     define(['underscore', 'backbone'], factory);
-  } else {
+  }
+  else {
     root.Backbone.Obscura = factory(root['_'], root['Backbone']);
   }
 }(this, function(_, Backbone) {
   function _requireDep(name) {
     return {'underscore': _, 'backbone': Backbone}[name];
   }
+
+  var _bundleExports =
+(function (define) {
     function _require(index) {
         var module = _require.cache[index];
         if (!module) {
@@ -183,7 +188,7 @@
                         if (_.contains([
                                 'add',
                                 'remove',
-                                'destory'
+                                'destroy'
                             ], eventName)) {
                             args[2] = target;
                         } else if (_.contains([
@@ -700,5 +705,8 @@
             module.exports = proxyEvents;
         }
     ];
-    return _require(0);
+    return  _require(0);
+}());
+
+  return _bundleExports;
 }));
