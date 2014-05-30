@@ -12,6 +12,10 @@ describe('Backbone.Obscura', function() {
 
   describe('With no options', function() {
 
+    it('should be instanceof Backbone#Collection', function() {
+      assert(proxy instanceof Backbone.Collection);
+    });
+
     it('should be the same length as the superset', function() {
       assert(proxy.length === superset.length);
     });
@@ -48,6 +52,31 @@ describe('Backbone.Obscura', function() {
 
       superset.reset([]);
       assert(_.isEqual(superset.models, proxy.models));
+    });
+
+  });
+
+  var unsupportedMethods = [
+    'add', 'create', 'remove', 'set', 'reset', 'sort', 'parse',
+    'sync', 'fetch', 'push', 'pop', 'shift', 'unshift'
+  ];
+
+  var unsupportedProperties = [
+    'comparator', 'model', 'url'
+  ];
+
+  describe('unsupported Backbone#Collection methods and properties', function() {
+
+    it('unsupported method calls should exist', function() {
+      _.forEach(unsupportedMethods, function(method) {
+        assert.isFunction(proxy[method]);
+      });
+    });
+
+    it('should throw an error on unsupported method calls', function() {
+      _.forEach(unsupportedMethods, function(method) {
+        assert.throw(proxy[method]);
+      });
     });
 
   });
