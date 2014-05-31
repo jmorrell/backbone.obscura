@@ -111,6 +111,21 @@
                     'paginated:change:page',
                     'paginated:change:numPages'
                 ];
+            var unsupportedMethods = [
+                    'add',
+                    'create',
+                    'remove',
+                    'set',
+                    'reset',
+                    'sort',
+                    'parse',
+                    'sync',
+                    'fetch',
+                    'push',
+                    'pop',
+                    'shift',
+                    'unshift'
+                ];
             _.each(filteredMethods, function (method) {
                 methods[method] = function () {
                     var result = FilteredCollection.prototype[method].apply(this._filtered, arguments);
@@ -129,7 +144,13 @@
                     return result === this._sorted ? this : result;
                 };
             });
+            _.each(unsupportedMethods, function (method) {
+                methods[method] = function () {
+                    throw new Error('Backbone.Obscura: Unsupported method: ' + method + 'called on read-only proxy');
+                };
+            });
             _.extend(Obscura.prototype, methods, Backbone.Events);
+            Obscura = Backbone.Collection.extend(Obscura.prototype);
             Obscura.FilteredCollection = FilteredCollection;
             Obscura.SortedCollection = SortedCollection;
             Obscura.PaginatedCollection = PaginatedCollection;

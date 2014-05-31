@@ -81,6 +81,11 @@ var paginatedEvents = [
   'paginated:change:perPage', 'paginated:change:page', 'paginated:change:numPages'
 ];
 
+var unsupportedMethods = [
+  'add', 'create', 'remove', 'set', 'reset', 'sort', 'parse',
+  'sync', 'fetch', 'push', 'pop', 'shift', 'unshift'
+];
+
 // Extend obscura with each of the above methods, passing the call to the underlying
 // collection.
 //
@@ -110,7 +115,17 @@ _.each(sortedMethods, function(method) {
   };
 });
 
+_.each(unsupportedMethods, function(method) {
+  methods[method] = function() {
+    throw new Error("Backbone.Obscura: Unsupported method: " + method + 'called on read-only proxy');
+  };
+});
+
 _.extend(Obscura.prototype, methods, Backbone.Events);
+
+// Now that we've over-written all of the backbone collection methods, we can safely
+// inherit from backbone's Collection
+Obscura = Backbone.Collection.extend(Obscura.prototype);
 
 // Expose the other proxy types so that the user can use them on their own if they want
 Obscura.FilteredCollection = FilteredCollection;

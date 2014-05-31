@@ -61,14 +61,10 @@ describe('Backbone.Obscura', function() {
     'sync', 'fetch', 'push', 'pop', 'shift', 'unshift'
   ];
 
-  var unsupportedProperties = [
-    'comparator', 'model', 'url'
-  ];
-
   describe('unsupported Backbone#Collection methods and properties', function() {
 
     it('unsupported method calls should exist', function() {
-      _.forEach(unsupportedMethods, function(method) {
+      _.each(unsupportedMethods, function(method) {
         assert.isFunction(proxy[method]);
       });
     });
