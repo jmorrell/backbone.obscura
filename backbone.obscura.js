@@ -193,7 +193,10 @@
                     'remove',
                     'reset',
                     'sort',
-                    'destroy'
+                    'destroy',
+                    'sync',
+                    'request',
+                    'error'
                 ];
             function proxyCollection(from, target) {
                 function updateLength() {
