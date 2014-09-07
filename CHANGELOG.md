@@ -1,3 +1,7 @@
+v1.0.0
+
+* Obscura now extends Backbone.Collection
+
 v0.1.8
 
 * Updated build because of dependency updates
