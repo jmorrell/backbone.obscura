@@ -19,6 +19,7 @@ function Obscura(superset, options) {
   proxyEvents.call(this, this._filtered, filteredEvents);
   proxyEvents.call(this, this._sorted, sortedEvents);
   proxyEvents.call(this, this._paginated, paginatedEvents);
+  this.initialize.call(this, options);
 }
 
 var methods = {
