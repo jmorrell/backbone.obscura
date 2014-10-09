@@ -1,3 +1,7 @@
+v1.0.1
+
+* Add a call to `this.initialize` to facilitate subclassing
+
 v1.0.0
 
 * Obscura now extends Backbone.Collection
