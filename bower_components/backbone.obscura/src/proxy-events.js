@@ -1,3 +1,5 @@
+var _ = require('underscore');
+
 function proxyEvents(from, eventNames) {
   _.each(eventNames, function(eventName) {
     this.listenTo(from, eventName, function() {

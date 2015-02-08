@@ -13,6 +13,8 @@ This works particularly well with [Marionette's](https://github.com/marionettejs
 [CollectionView](https://github.com/marionettejs/backbone.marionette/blob/master/docs/marionette.collectionview.md) 
 and [CompositeView](https://github.com/marionettejs/backbone.marionette/blob/master/docs/marionette.compositeview.md).
 
+#### [Demo](http://jmorrell.github.io/backbone.obscura/example.html)
+
 ```javascript
 var proxy = new Backbone.Obscura(originalCollection);
 
@@ -105,6 +107,9 @@ var obscura  = new PaginatedCollection(sorted);
   * <a href="#remove-filter"><code>proxy<b>.removeFilter()</b></code></a>
   * <a href="#reset-filters"><code>proxy<b>.resetFilters()</b></code></a>
   * <a href="#refilter"><code>proxy<b>.refilter()</b></code></a>
+  * <a href="#get-filters"><code>proxy<b>.getFilters()</b></code></a>
+  * <a href="#has-filter"><code>proxy<b>.hasFilter()</b></code></a>
+  * <a href="#get-filtered-length"><code>proxy<b>.getFilteredLength</b></code></a>
 
 #### Sorting Methods
   * <a href="#set-sort"><code>proxy<b>.setSort()</b></code></a>
@@ -164,12 +169,16 @@ should be identical to the original collection.
 proxy.removeTransforms();
 ```
 
+
 <a name="destroy"></a>
 #### proxy.destroy()
 
 Remove all ties to the superset and stop updating. Will now be garbage 
 collected when it falls out of scope.
 
+```
+proxy.destroy();
+```
 
 ### Filter methods
 
@@ -187,6 +196,13 @@ Or the you can pass a filter function instead of a value.
 ```javascript
 filtered.filterBy('a > 2', { a: function(val) { 
   return val > 2;
+}});
+```
+
+Or say you wanted to narrow a value down to one of a couple of options:
+```javascript
+filtered.filterBy('quality', { a: function(val) { 
+  return _.contains([ 'better', 'best' ], val);
 }});
 ```
 
@@ -230,6 +246,36 @@ Can also be forced to run on one model in particular.
 
 ```javascript
 proxy.refilter(model);
+```
+
+<a name="get-filters"></a>
+#### filtered.getFilters()
+
+Returns a list of the names of applied filters.
+
+*Note:* If added a filter with no name, it will show up here as `__default`.
+
+```javascript
+filtered.getFilters();
+```
+
+<a name="has-filter"></a>
+#### filtered.hasFilter()
+
+Given a string, return whether or not that filter is currently applied.
+
+```javascript
+filtered.hasFilter('name');
+```
+
+<a name="get-filtered-length"></a>
+#### filtered.getFilteredLength()
+
+Return the length of the filtered set. This is useful when you have also paginated
+the collection and want to know how many items are in the unpaginated set.
+
+```javascript
+filtered.getFilteredLength();
 ```
 
 ### Sorting methods
@@ -386,7 +432,7 @@ proxy.prevPage();
 ```
 
 <a name="first-page"></a>
-### paginated.firstPage()
+#### paginated.firstPage()
 
 Move to the first page of the collection. Equivalent to `paginated.setPage(0)`.
 
@@ -395,7 +441,7 @@ proxy.firstPage();
 ```
 
 <a name="last-page"></a>
-### paginated.lastPage()
+#### paginated.lastPage()
 
 Move to the last page of the collection. Equivalent to `paginated.setPage(paginated.getNumPages() - 1)`.
 
@@ -439,7 +485,7 @@ proxy.removePagination();
 
 ## Installation
 
-### Usage with Browserify
+### Usage with Browserify or similar
 
 Install with npm, use with [Browserify](http://browserify.org/)
 
@@ -483,16 +529,7 @@ From the repo root, install the project's development dependencies:
 
 ```
 npm install
-bower install
-```
-
-Testing relies on the Karma test-runner. If you'd like to use Karma to
-automatically watch and re-run the test file during development, it's easiest
-to globally install Karma and run it from the CLI.
-
-```
-npm install -g karma
-karma start
+npm start
 ```
 
 To run the tests in Firefox, just once, as CI would:
@@ -514,6 +551,7 @@ There are several libraries that offer similar functionality, but none that offe
 
 If this library doesn't meet your needs, maybe one of the following will:
 
+* [Backbone.CollectionFilter](https://github.com/rhysbrettbowen/Backbone.CollectionFilter)
 * [Backbone.Projections](https://github.com/andreypopp/backbone.projections)
 * [backbone.collectionsubset](https://github.com/anthonyshort/backbone.collectionsubset)
 * [Backbone.VirtualCollection](https://github.com/p3drosola/Backbone.VirtualCollection)

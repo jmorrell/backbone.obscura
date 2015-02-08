@@ -15,10 +15,10 @@
   ],
   "dependencies": {
     "topcoat": "~0.7.0",
-    "backbone": "~1.0.0",
-    "lodash": "~1.3.1",
-    "marionette": "~1.1.0",
-    "jquery": "~2.0.3",
-    "backbone.obscura": "~0.1.0"
+    "backbone": "~1.1.2",
+    "lodash": "~2.4.1",
+    "backbone.marionette": "~2.3.1",
+    "jquery": "~2.1.3",
+    "backbone.obscura": "jmorrell/backbone.obscura"
   }
 }

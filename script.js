@@ -16,7 +16,7 @@ var ListItemView = Marionette.ItemView.extend({
 var ListView = Marionette.CollectionView.extend({
   className: 'topcoat-list__container',
   tagName: 'ul',
-  itemView: ListItemView,
+  childView: ListItemView,
 
   // Marionette's default implementation ignores the index, always
   // appending the new view to the end. Let's be a little more clever.
